@@ -2,48 +2,48 @@
 @import "tailwindcss";
 
 @theme {
-	--font-sans: "Inter", monospace;
+  --font-sans: "Inter", monospace;
 
-	--color-background: #111111;
-	--color-surface: #2d2d2d;
+  --color-background: #111111;
+  --color-surface: #2d2d2d;
 
-	--color-primary: #865bce;
-	--color-secondary: #9d4edd;
+  --color-primary: #865bce;
+  --color-secondary: #9d4edd;
 }
 
 #root {
-	max-width: 100dvw;
-	height: 100%;
-	width: 100%;
-	margin: 0;
-	padding: 0;
-	text-align: center;
-	box-sizing: border-box;
-	color: white;
+  max-width: 100dvw;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  box-sizing: border-box;
+  color: white;
 }
 
 body {
-	input[type="number"]::-webkit-outer-spin-button,
-	input[type="number"]::-webkit-inner-spin-button {
-		-webkit-appearance: none;
-		margin: 0;
-	}
+  input[type="number"]::-webkit-outer-spin-button,
+  input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-	input[type="number"] {
-		-moz-appearance: textfield;
-	}
+  input[type="number"] {
+    -moz-appearance: textfield;
+  }
 
-	background-color: var(--color-background);
-	color: black;
-	font-family: var(--font-sans);
-	min-height: 100vh;
+  background-color: var(--color-background);
+  color: black;
+  font-family: var(--font-sans);
+  min-height: 100vh;
 }
 
 :root {
-	line-height: 1.5;
-	font-weight: 400;
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

@@ -1,23 +1,27 @@
 function BannerGameFeatured({ image, onClick }) {
-	return (
-		<div
-			onClick={onClick}
-			className="mt-10 group relative w-full h-48 md:h-80 lg:h-96 rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 cursor-pointer transition-all duration-500 hover:shadow-primary/30"
-		>
-			<img src={image} alt="Featured promotion" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+  return (
+    <div
+      onClick={onClick}
+      className="group shadow-primary/10 hover:shadow-primary/30 relative mt-10 h-48 w-full cursor-pointer overflow-hidden rounded-3xl shadow-2xl transition-all duration-500 md:h-80 lg:h-96"
+    >
+      <img
+        src={image}
+        alt="Featured promotion"
+        className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
 
-			<div className="absolute inset-0 bg-black opacity-40" />
-			<div className="absolute bottom-1/3 right-30 flex flex-col items-end  uppercase">
-				<h1 className="text-4xl font-sans font-black">Limited Offer!</h1>
-				<h2 className="text-2xl font-sans font-bold">games up to -50%</h2>
-			</div>
-			<div className="absolute bottom-6 left-6">
-				<span className="bg-primary px-4 py-2 rounded-full text-sm  text-white shadow-lg transition-colors duration-300 hover:cursor-pointer hover:bg-secondary ">
-					Check Details
-				</span>
-			</div>
-		</div>
-	);
+      <div className="absolute inset-0 bg-black opacity-40" />
+      <div className="absolute right-30 bottom-1/3 flex flex-col items-end uppercase">
+        <h1 className="font-sans text-4xl font-black">Limited Offer!</h1>
+        <h2 className="font-sans text-2xl font-bold">games up to -50%</h2>
+      </div>
+      <div className="absolute bottom-6 left-6">
+        <span className="bg-primary hover:bg-secondary rounded-full px-4 py-2 text-sm text-white shadow-lg transition-colors duration-300 hover:cursor-pointer">
+          Check Details
+        </span>
+      </div>
+    </div>
+  );
 }
 
 export default BannerGameFeatured;
