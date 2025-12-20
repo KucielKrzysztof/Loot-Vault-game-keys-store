@@ -13,7 +13,12 @@ function HomePage() {
 
   return (
     <div className="flex flex-col items-center">
-      {/* HOME BANNER */}
+      {/* HOMER BANNER */}
+      <FullBanner>
+        <FullBanner.Image src="/banner.png" alt="Home" />
+      </FullBanner>
+
+      {/* FEATURED BANNER BANNER */}
       <PageSection>
         <BannerGameFeatured image={placeholderURL} />
       </PageSection>

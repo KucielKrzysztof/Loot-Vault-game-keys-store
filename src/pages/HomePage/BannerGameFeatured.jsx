@@ -11,9 +11,13 @@ function BannerGameFeatured({ image, onClick }) {
       />
 
       <div className="absolute inset-0 bg-black opacity-40" />
-      <div className="absolute right-30 bottom-1/3 flex flex-col items-end uppercase">
-        <h1 className="font-sans text-4xl font-black">Limited Offer!</h1>
-        <h2 className="font-sans text-2xl font-bold">games up to -50%</h2>
+      <div className="absolute bottom-1/3 flex flex-col items-end pl-3 uppercase md:right-30 md:pl-0">
+        <h1 className="font-sans text-xl font-black md:text-4xl">
+          Limited Offer!
+        </h1>
+        <h2 className="font-sans text-lg font-bold md:text-2xl">
+          games up to -50%
+        </h2>
       </div>
       <div className="absolute bottom-6 left-6">
         <span className="bg-primary hover:bg-secondary rounded-full px-4 py-2 text-sm text-white shadow-lg transition-colors duration-300 hover:cursor-pointer">

@@ -7,12 +7,12 @@ function FullBanner({
   );
 }
 
-function BannerImage({ src, alt }) {
+function BannerImage({ src, alt, className = "" }) {
   return (
     <img
       src={src}
       alt={alt}
-      className="absolute inset-0 h-full w-full object-cover"
+      className={`absolute inset-0 h-full w-full object-cover ${className}`}
     />
   );
 }
