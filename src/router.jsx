@@ -1,7 +1,9 @@
 import { Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
-import ProductsPage from "./pages/ProductsPage/ProductsPage";
+
 import AppLayout from "./ui/AppLayout";
+import ProductPage from "./pages/ProductPage/ProductPage";
+import ProductsListPage from "./pages/ProductsListPage/ProductsListPage";
 
 export const routes = [
   {
@@ -9,7 +11,8 @@ export const routes = [
     children: [
       { path: "/", index: true, element: <Navigate replace to="home" /> },
       { path: "home", element: <HomePage /> },
-      { path: "products", element: <ProductsPage /> },
+      { path: "products", element: <ProductsListPage /> },
+      { path: "product/:slug", element: <ProductPage /> },
     ],
   },
   /* { path: "*", element: <PageNotFound /> }, */

@@ -6,6 +6,7 @@ import PageSection from "../../ui/PageSection";
 import TestimonialBanner from "./TestimonialBanner";
 import MobileAppBanner from "./MobileAppBanner";
 import FAQ from "./FAQ";
+import CategoryGrid from "../../ui/CategoryCard/CategoryGrid";
 
 function HomePage() {
   const placeholderURL =
@@ -29,6 +30,11 @@ function HomePage() {
           <GamesGrid.Header to="#">Trending</GamesGrid.Header>
           <GamesGrid.List />
         </GamesGrid>
+      </PageSection>
+
+      {/* CATEGORY GIRD */}
+      <PageSection>
+        <CategoryGrid />
       </PageSection>
 
       {/* HERO SECTION  */}

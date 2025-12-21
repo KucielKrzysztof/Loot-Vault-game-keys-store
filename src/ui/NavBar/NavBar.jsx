@@ -20,28 +20,21 @@ function NavBar() {
 
   return (
     <nav className="bg-primary/80 fixed top-0 z-50 h-16 w-full border-b border-white/10 p-2 backdrop-blur-sm">
-      {/* CONTENER */}
       <div className="relative flex h-full items-center justify-between px-4">
-        {/* LEWO */}
         <div
           className={`flex items-center gap-2 ${isSearchOpen ? "hidden lg:flex" : "flex"}`}
         >
           <Logo />
           <NavLink to="products">
             <Menu className="text-gray-300 transition-all duration-300 hover:text-white md:hover:scale-110" />
-            {/* Categories */}
           </NavLink>
         </div>
-        {/* LEWO */}
 
-        {/* Srodek */}
         <SearchBar
           isOpen={isSearchOpen}
           onClose={() => setIsSearchOpen(false)}
         />
-        {/* Srodek */}
 
-        {/* PRWO */}
         <div
           className={`flex items-center gap-3 ${isSearchOpen ? "hidden lg:flex" : "flex"}`}
         >
@@ -58,9 +51,7 @@ function NavBar() {
             <UserCircle size={30} />
           </button>
         </div>
-        {/* PRWO */}
       </div>
-      {/* CONTENER */}
     </nav>
   );
 }
