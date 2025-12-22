@@ -7,6 +7,7 @@ import TestimonialBanner from "./TestimonialBanner";
 import MobileAppBanner from "./MobileAppBanner";
 import FAQ from "./FAQ";
 import CategoryGrid from "../../ui/CategoryCard/CategoryGrid";
+import Button from "../../ui/Button";
 
 function HomePage() {
   const placeholderURL =
@@ -44,9 +45,7 @@ function HomePage() {
         <FullBanner.Content>
           <h1 className="text-6xl font-black">Limited Time Offer</h1>
           <p>Grab Elden Ring with 50% Discount!</p>
-          <button className="bg-primary hover:bg-secondary rounded-full px-6 py-2 transition-colors duration-300 hover:cursor-pointer">
-            Check now
-          </button>
+          <Button variant="primary">Check now</Button>
         </FullBanner.Content>
       </FullBanner>
 

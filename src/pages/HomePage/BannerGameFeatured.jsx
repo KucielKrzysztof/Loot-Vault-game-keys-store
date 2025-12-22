@@ -1,3 +1,5 @@
+import Button from "../../ui/Button";
+
 function BannerGameFeatured({ image, onClick }) {
   return (
     <div
@@ -20,9 +22,7 @@ function BannerGameFeatured({ image, onClick }) {
         </h2>
       </div>
       <div className="absolute bottom-6 left-6">
-        <span className="bg-primary hover:bg-secondary rounded-full px-4 py-2 text-sm text-white shadow-lg transition-colors duration-300 hover:cursor-pointer">
-          Check Details
-        </span>
+        <Button variant="primary">Check Details</Button>
       </div>
     </div>
   );

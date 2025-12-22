@@ -1,3 +1,4 @@
+import Button from "../../ui/Button";
 import FullBanner from "../../ui/FullBanner";
 
 function TestimonialBanner() {
@@ -36,9 +37,9 @@ function TestimonialBanner() {
               delivery, secure payments, and unbeatable prices!"
             </p>
 
-            <button className="hover:bg-secondary transform rounded-full bg-white px-10 py-4 font-bold text-black shadow-xl transition-all hover:scale-105 hover:text-white">
+            <Button variant="secondary" className="hover:scale-110">
               Join our Discord Community
-            </button>
+            </Button>
           </div>
         </div>
       </FullBanner.Content>

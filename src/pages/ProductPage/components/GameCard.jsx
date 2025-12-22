@@ -1,0 +1,85 @@
+import { CheckCircle, Globe, ShoppingCart, Star } from "lucide-react";
+import Button from "../../../ui/Button";
+import { formatCurrency } from "../../../utils/formatters";
+
+function GameCard({
+  title,
+  image,
+  inStock,
+  region,
+  rating,
+  originalPrice,
+  price,
+  discount,
+  platforms,
+}) {
+  return (
+    <div className="bg-surface/20 grid grid-cols-1 gap-8 rounded-3xl p-8 shadow-2xl backdrop-blur-xl lg:grid-cols-2">
+      <div className="overflow-hidden rounded-2xl border border-white/10 shadow-lg">
+        <img
+          src={image}
+          alt={title}
+          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+        />
+      </div>
+
+      <div className="flex flex-col items-center gap-4 text-white">
+        <h1 className="text-4xl font-black tracking-tight uppercase">
+          {title}
+        </h1>
+
+        <div className="h-px w-full bg-white/10" />
+
+        <div className="mx-auto flex flex-wrap items-center justify-center gap-3">
+          <div className="flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-bold tracking-wider uppercase">
+            <Globe size={14} className="text-primary" /> {region}
+          </div>
+
+          <div
+            className={`flex items-center gap-2 rounded-full border px-4 py-1.5 text-xs font-bold tracking-wider uppercase ${inStock ? "border-green-500/20 bg-green-500/10 text-green-500" : "border-red-500/20 bg-red-500/10 text-red-500"}`}
+          >
+            <CheckCircle size={14} /> {inStock ? "In Stock" : "Out of Stock"}
+          </div>
+          <div className="flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-4 py-1.5 text-xs font-bold tracking-wider text-amber-500 uppercase">
+            <Star size={14} fill="currentColor" /> {rating}
+          </div>
+        </div>
+
+        <div className="bg-background/60 flex items-center justify-center gap-3 rounded-3xl p-3">
+          {discount >= 1 && (
+            <div className="flex flex-col text-sm">
+              <div className="text-gray-400 line-through">
+                ${formatCurrency(originalPrice)}
+              </div>
+              <div className="rounded-full bg-emerald-500 p-1">
+                -{discount}%
+              </div>
+            </div>
+          )}
+          <div className="text-2xl font-bold">${formatCurrency(price)}</div>
+        </div>
+
+        <div className="flex w-1/2 flex-col items-center gap-2">
+          <label className="text-primary text-sm font-bold tracking-widest uppercase">
+            Choose Platform
+          </label>
+          <select className="bg-background/60 hover:border-primary/50 focus:border-primary w-full cursor-pointer rounded-xl border border-white/10 px-4 py-3 text-sm font-medium text-white transition-all outline-none">
+            {platforms.map((p) => (
+              <option key={p} value={p} className="bg-background/60 text-white">
+                {p}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div className="font-black">
+          <Button variant="primary" className="uppercase">
+            <ShoppingCart className="inline" /> <span>Add To Cart</span>
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default GameCard;
