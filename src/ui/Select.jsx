@@ -53,6 +53,7 @@ function Content({ className, value, onChange }) {
       {options.map((o) => (
         <option
           key={o}
+          value={o}
           className={cn("bg-background/60 text-white", className)}
         >
           {o}

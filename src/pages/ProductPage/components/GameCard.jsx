@@ -2,18 +2,41 @@ import { CheckCircle, Globe, ShoppingCart, Star } from "lucide-react";
 import Button from "../../../ui/Button";
 import { formatCurrency } from "../../../utils/formatters";
 import Select from "../../../ui/Select";
+import { useCart } from "../../../Features/cart/hooks/useCart";
+import { useState } from "react";
 
-function GameCard({
-  title,
-  image,
-  inStock,
-  region,
-  rating,
-  originalPrice,
-  price,
-  discount,
-  platforms,
-}) {
+function GameCard({ product }) {
+  const {
+    title,
+    image,
+    inStock,
+    region,
+    rating,
+    originalPrice,
+    price,
+    discount,
+    platforms,
+  } = product;
+
+  const { addItem } = useCart();
+
+  const [selectedPlatform, setSelectedPlatform] = useState(platforms[0]);
+  const isPurchasable = inStock && typeof price === "number" && price > 0;
+
+  function handleAddToCart() {
+    if (!product) return;
+
+    if (!isPurchasable) {
+      console.error(
+        `Can't add product "${title}" - Invalid price or Not in stock`,
+      );
+      return;
+    }
+    const newItem = { ...product, selectedPlatform };
+    addItem(newItem);
+    console.log("Added to cart:", title, "on platform:", selectedPlatform);
+  }
+
   return (
     <div className="bg-surface/20 grid grid-cols-1 gap-8 rounded-3xl p-8 shadow-2xl backdrop-blur-xl lg:grid-cols-2">
       <div className="overflow-hidden rounded-2xl border border-white/10 shadow-lg">
@@ -62,12 +85,19 @@ function GameCard({
 
         <Select label="Choose Platform" options={platforms}>
           <Select.Label />
-          <Select.Content />
+          <Select.Content
+            onChange={(e) => setSelectedPlatform(e.target.value)}
+          />
         </Select>
 
         <div className="font-black">
-          <Button variant="primary" className="uppercase">
-            <ShoppingCart className="inline" /> <span>Add To Cart</span>
+          <Button
+            variant="primary"
+            className={`uppercase ${!isPurchasable && "bg-gray-500 hover:bg-gray-500"}`}
+            disabled={!isPurchasable}
+            onClick={() => handleAddToCart()}
+          >
+            <span>{isPurchasable ? "Add To Cart" : "Can't purchase"}</span>
           </Button>
         </div>
       </div>

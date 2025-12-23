@@ -35,7 +35,10 @@ function GameAbout({
           </h2>
           <div className="flex items-center justify-center gap-3">
             {genre.map((g) => (
-              <div className="hover:bg-primary/20 cursor-default rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold transition-colors">
+              <div
+                key={g}
+                className="hover:bg-primary/20 cursor-default rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold transition-colors"
+              >
                 {g}
               </div>
             ))}

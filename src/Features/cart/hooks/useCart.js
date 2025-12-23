@@ -3,28 +3,43 @@ import {
   addToCart as addToCartAction,
   removeFromCart as removeFromCartAction,
   clearCart as clearCartAction,
+  getTotalCartQuantity,
+  getTotalCartPrice,
+  selectCartItems,
 } from "../carSlice";
+import { useCallback } from "react";
 
 export const useCart = () => {
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items);
 
-  function addItem(product) {
-    dispatch(addToCartAction(product));
-  }
+  const cartItems = useSelector(selectCartItems);
+  const totalPrice = useSelector(getTotalCartPrice);
+  const totalQuantity = useSelector(getTotalCartQuantity);
 
-  function removeItem(id) {
-    dispatch(removeFromCartAction(id));
-  }
-
-  function clear() {
-    dispatch(clearCartAction());
-  }
-
-  const totalPrice = cartItems.reduce(
-    (acc, item) => acc + item * item.quantity,
-    0,
+  const addItem = useCallback(
+    (product) => {
+      dispatch(addToCartAction(product));
+    },
+    [dispatch],
   );
 
-  return { cart: cartItems, addItem, removeItem, clear, totalPrice };
+  const removeItem = useCallback(
+    (id) => {
+      dispatch(removeFromCartAction(id));
+    },
+    [dispatch],
+  );
+
+  const clear = useCallback(() => {
+    dispatch(clearCartAction());
+  }, [dispatch]);
+
+  return {
+    cart: cartItems,
+    addItem,
+    removeItem,
+    clear,
+    totalPrice,
+    totalQuantity,
+  };
 };

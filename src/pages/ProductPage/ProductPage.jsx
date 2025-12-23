@@ -44,17 +44,7 @@ function ProductPage() {
       {/* MAIN CONTENT */}
       <div className="relative z-10 mt-50">
         <PageSection>
-          <GameCard
-            title={title}
-            image={image}
-            inStock={inStock}
-            region={region}
-            rating={rating}
-            originalPrice={originalPrice}
-            price={price}
-            discount={discount}
-            platforms={platforms}
-          />
+          <GameCard product={product} />
         </PageSection>
 
         <PageSection>

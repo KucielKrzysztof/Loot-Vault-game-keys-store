@@ -3,9 +3,14 @@ import { ShoppingCart, UserCircle, Menu, Search } from "lucide-react";
 import { NavLink } from "react-router-dom";
 import SearchBar from "../Search/SearchBar";
 import Logo from "./Logo";
+import { useCart } from "../../Features/cart/hooks/useCart";
+import { cn } from "../../utils/cn";
 
 function NavBar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { totalQuantity } = useCart();
+  const textOutline =
+    "[text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]";
 
   useEffect(() => {
     const handleResize = () => {
@@ -44,8 +49,18 @@ function NavBar() {
           >
             <Search size={30} />
           </button>
-          <button className="text-gray-300 transition-colors hover:text-white">
+          <button className="group relative text-gray-300 transition-all hover:text-white">
             <ShoppingCart size={30} />
+            {totalQuantity > 0 && (
+              <span
+                className={cn(
+                  "animate-in zoom-in absolute -top-1.5 -right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-amber-500 text-[10px] font-black text-white transition-all",
+                  textOutline,
+                )}
+              >
+                {totalQuantity > 99 ? "99+" : totalQuantity}
+              </span>
+            )}
           </button>
           <button className="text-gray-300 transition-colors hover:text-white">
             <UserCircle size={30} />
