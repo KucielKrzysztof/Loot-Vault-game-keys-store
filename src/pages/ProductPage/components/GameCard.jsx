@@ -1,6 +1,7 @@
 import { CheckCircle, Globe, ShoppingCart, Star } from "lucide-react";
 import Button from "../../../ui/Button";
 import { formatCurrency } from "../../../utils/formatters";
+import Select from "../../../ui/Select";
 
 function GameCard({
   title,
@@ -59,18 +60,10 @@ function GameCard({
           <div className="text-2xl font-bold">${formatCurrency(price)}</div>
         </div>
 
-        <div className="flex w-1/2 flex-col items-center gap-2">
-          <label className="text-primary text-sm font-bold tracking-widest uppercase">
-            Choose Platform
-          </label>
-          <select className="bg-background/60 hover:border-primary/50 focus:border-primary w-full cursor-pointer rounded-xl border border-white/10 px-4 py-3 text-sm font-medium text-white transition-all outline-none">
-            {platforms.map((p) => (
-              <option key={p} value={p} className="bg-background/60 text-white">
-                {p}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select label="Choose Platform" options={platforms}>
+          <Select.Label />
+          <Select.Content />
+        </Select>
 
         <div className="font-black">
           <Button variant="primary" className="uppercase">
