@@ -1,4 +1,3 @@
-import { productList } from "../../assets/mockdata";
 import GamesGrid from "../../ui/GamesGrid";
 import FullBanner from "../../ui/FullBanner";
 import BannerGameFeatured from "./components/BannerGameFeatured";
@@ -8,10 +7,15 @@ import MobileAppBanner from "./components/MobileAppBanner";
 import FAQ from "./components/FAQ";
 import CategoryGrid from "../../ui/CategoryCard/CategoryGrid";
 import Button from "../../ui/Button";
+import { useProducts } from "../../Features/products/hooks/useProducts";
 
 function HomePage() {
   const placeholderURL =
     "https://gaming-cdn.com/images/products/16007/orig/elden-ring-shadow-of-the-erdtree-edition-shadow-of-the-erdtree-edition-pc-game-steam-europe-cover.jpg?v=1718975409";
+
+  const { isPending, data: products, error } = useProducts();
+
+  if (error) return <p className="text-white">Error Loading data!</p>;
 
   return (
     <div className="flex flex-col items-center">
@@ -22,12 +26,15 @@ function HomePage() {
 
       {/* FEATURED BANNER BANNER */}
       <PageSection>
-        <BannerGameFeatured image={placeholderURL} />
+        <BannerGameFeatured
+          image={placeholderURL}
+          onClick={console.log("todo")}
+        />
       </PageSection>
 
       {/* Trending games grid */}
       <PageSection>
-        <GamesGrid games={productList} isLoading={false}>
+        <GamesGrid games={products} isLoading={isPending}>
           <GamesGrid.Header to="#">Trending</GamesGrid.Header>
           <GamesGrid.List />
         </GamesGrid>
@@ -51,7 +58,7 @@ function HomePage() {
 
       {/* RECOMMENDED games grid  */}
       <PageSection>
-        <GamesGrid games={productList.slice(0, 3)} isLoading={false}>
+        <GamesGrid games={products?.slice(0, 3)} isLoading={isPending}>
           <GamesGrid.Header to="#">Recommended</GamesGrid.Header>
           <GamesGrid.List />
         </GamesGrid>
@@ -62,7 +69,7 @@ function HomePage() {
 
       {/* BESTSELLERS games grid  */}
       <PageSection>
-        <GamesGrid games={productList.slice(0, 9)} isLoading={true}>
+        <GamesGrid games={products?.slice(0, 9)} isLoading={isPending}>
           <GamesGrid.Header to="#">Bestsellers</GamesGrid.Header>
           <GamesGrid.List />
         </GamesGrid>

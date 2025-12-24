@@ -79,9 +79,9 @@ function GamesItem({ game }) {
         <span className="sm:text-md truncate text-[13px]">{title}</span>
         <span className="text-secondary flex items-center gap-1 text-sm md:text-lg">
           {discount > 0 && (
-            <sm className="text-[11px] text-gray-400 line-through md:text-sm">
+            <span className="text-[11px] text-gray-400 line-through md:text-sm">
               ${formatCurrency(originalPrice)}
-            </sm>
+            </span>
           )}
           <strong>${formatCurrency(price)}</strong>
         </span>

@@ -10,10 +10,10 @@ function GameCard({ product }) {
   const {
     title,
     image,
-    inStock,
+    in_stock: inStock,
     region,
     rating,
-    originalPrice,
+    original_price: originalPrice,
     price,
     discount,
     platforms,

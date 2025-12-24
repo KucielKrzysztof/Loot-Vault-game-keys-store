@@ -1,22 +1,21 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import FullBanner from "../../ui/FullBanner";
-import { productList } from "../../assets/mockdata";
 import PageSection from "../../ui/PageSection";
-
-import { useState } from "react";
 import GameCard from "./components/GameCard";
 import GameAbout from "./components/GameAbout";
 import GameRequirements from "./components/GameRequirements";
 import PageNotFound from "../PageNotFound/PageNotFound";
+import { useProduct } from "../../Features/products/hooks/useProduct";
+import FullPageLoader from "../../ui/FullPageLoader";
 
 function ProductPage() {
   const { slug } = useParams();
-  const product = productList.find((i) => i.slug === slug);
+  const { data: product, isPending, error } = useProduct(slug);
   const [showDescription, setShowDescription] = useState(false);
 
-  if (!product) {
-    return <PageNotFound />;
-  }
+  if (error) return <PageNotFound />;
+  if (isPending) return <FullPageLoader />;
 
   const { title, image } = product;
 
