@@ -33,3 +33,26 @@ export function notifyAddedToCart(game, platform, openCart) {
     { duration: 4000 },
   );
 }
+
+export const notifyGeneric = (message, buttonTxt, handleClick) => {
+  toast.success(
+    (t) => (
+      <div className="flex min-w-[280px] items-center justify-between gap-4 py-1">
+        <h3 className="text-sm leading-tight font-black text-white">
+          {message}
+        </h3>
+
+        <button
+          onClick={() => {
+            toast.dismiss(t.id);
+            handleClick();
+          }}
+          className="flex flex-col items-center justify-center rounded-lg border border-white/5 bg-white/5 px-3 py-2 text-[11px] font-black tracking-wider text-white uppercase transition-all hover:bg-white/10 active:scale-95"
+        >
+          {buttonTxt}
+        </button>
+      </div>
+    ),
+    { duration: 4000 },
+  );
+};

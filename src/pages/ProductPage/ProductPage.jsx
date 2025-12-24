@@ -4,23 +4,24 @@ import { productList } from "../../assets/mockdata";
 import PageSection from "../../ui/PageSection";
 
 import { useState } from "react";
-import Button from "../../ui/Button";
 import GameCard from "./components/GameCard";
 import GameAbout from "./components/GameAbout";
 import GameRequirements from "./components/GameRequirements";
+import PageNotFound from "../PageNotFound/PageNotFound";
 
 function ProductPage() {
   const { slug } = useParams();
   const product = productList.find((i) => i.slug === slug);
   const [showDescription, setShowDescription] = useState(false);
 
-  if (!product)
-    return <div className="pt-20 text-white">Product not found</div>;
+  if (!product) {
+    return <PageNotFound />;
+  }
 
   const { title, image } = product;
 
   return (
-    <div className="bg-background relative w-full">
+    <div className="bg-background relative h-full w-full">
       {/* BG BANNER */}
       <div className="absolute inset-0 z-0 h-[500px] w-full lg:h-[600px]">
         <FullBanner>
@@ -29,7 +30,7 @@ function ProductPage() {
         </FullBanner>
       </div>
       {/* MAIN CONTENT */}
-      <div className="relative z-10 mt-50">
+      <div className="relative z-10 pt-50">
         <PageSection>
           <GameCard product={product} />
         </PageSection>

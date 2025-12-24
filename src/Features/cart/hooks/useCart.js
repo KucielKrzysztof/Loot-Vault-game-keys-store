@@ -6,6 +6,8 @@ import {
   openCart as openCartAction,
   closeCart as closeCartAction,
   toggleCart as toggleCartAction,
+  increaseItemQuantity as increaseQtyAction,
+  decreaseItemQuantity as decreaseQtyAction,
   getTotalCartQuantity,
   getTotalCartPrice,
   selectCartItems,
@@ -43,6 +45,18 @@ export const useCart = () => {
     dispatch(clearCartAction());
   }, [dispatch]);
 
+  const increaseQty = useCallback(
+    (id, selectedPlatform) =>
+      dispatch(increaseQtyAction({ id, selectedPlatform })),
+    [dispatch],
+  );
+
+  const decreaseQty = useCallback(
+    (id, selectedPlatform) =>
+      dispatch(decreaseQtyAction({ id, selectedPlatform })),
+    [dispatch],
+  );
+
   return {
     cart: cartItems,
     addItem,
@@ -54,5 +68,7 @@ export const useCart = () => {
     close,
     toggle,
     isCartOpen,
+    increaseQty,
+    decreaseQty,
   };
 };

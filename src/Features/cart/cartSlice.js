@@ -38,6 +38,27 @@ const cartSlice = createSlice({
       );
     },
     clearCart: () => initialState,
+    increaseItemQuantity(state, action) {
+      const item = state.items.find(
+        (item) =>
+          item.id === action.payload.id &&
+          item.selectedPlatform === action.payload.selectedPlatform,
+      );
+      if (item) item.quantity++;
+    },
+    decreaseItemQuantity(state, action) {
+      const item = state.items.find(
+        (item) =>
+          item.id === action.payload.id &&
+          item.selectedPlatform === action.payload.selectedPlatform,
+      );
+      if (item) {
+        item.quantity--;
+        if (item.quantity === 0) {
+          cartSlice.caseReducers.removeFromCart(state, action);
+        }
+      }
+    },
   },
 });
 
@@ -66,5 +87,7 @@ export const {
   openCart,
   closeCart,
   toggleCart,
+  increaseItemQuantity,
+  decreaseItemQuantity,
 } = cartSlice.actions;
 export default cartSlice.reducer;

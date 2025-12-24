@@ -1,11 +1,11 @@
 import { productList } from "../../assets/mockdata";
 import GamesGrid from "../../ui/GamesGrid";
 import FullBanner from "../../ui/FullBanner";
-import BannerGameFeatured from "./BannerGameFeatured";
+import BannerGameFeatured from "./components/BannerGameFeatured";
 import PageSection from "../../ui/PageSection";
-import TestimonialBanner from "./TestimonialBanner";
-import MobileAppBanner from "./MobileAppBanner";
-import FAQ from "./FAQ";
+import TestimonialBanner from "./components/TestimonialBanner";
+import MobileAppBanner from "./components/MobileAppBanner";
+import FAQ from "./components/FAQ";
 import CategoryGrid from "../../ui/CategoryCard/CategoryGrid";
 import Button from "../../ui/Button";
 
@@ -71,6 +71,7 @@ function HomePage() {
 
       {/* GET  MOBIEL APP SECTION  */}
       <MobileAppBanner />
+
       <PageSection>
         <FAQ />
       </PageSection>

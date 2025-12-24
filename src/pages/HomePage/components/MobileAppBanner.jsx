@@ -1,8 +1,8 @@
-import AppButton from "../../ui/AppButton";
-import FullBanner from "../../ui/FullBanner";
-import getMobileAppBannerImg from "../../assets/mobile-app.png";
-import appleLogo from "../../assets/apple-logo.png";
-import googleStoreLogo from "../../assets/google-store-logo.png";
+import AppButton from "../../../ui/AppButton";
+import FullBanner from "../../../ui/FullBanner";
+import getMobileAppBannerImg from "../../../assets/mobile-app.png";
+import appleLogo from "../../../assets/apple-logo.png";
+import googleStoreLogo from "../../../assets/google-store-logo.png";
 
 function MobileAppBanner() {
   return (

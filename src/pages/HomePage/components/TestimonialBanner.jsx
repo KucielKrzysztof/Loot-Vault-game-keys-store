@@ -1,5 +1,5 @@
-import Button from "../../ui/Button";
-import FullBanner from "../../ui/FullBanner";
+import Button from "../../../ui/Button";
+import FullBanner from "../../../ui/FullBanner";
 
 function TestimonialBanner() {
   return (

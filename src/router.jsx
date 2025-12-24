@@ -1,5 +1,6 @@
 import { Navigate } from "react-router-dom";
 import AppLayout from "./ui/AppLayout";
+import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import { lazy } from "react";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
@@ -16,7 +17,7 @@ export const routes = [
       { path: "home", element: <HomePage /> },
       { path: "products", element: <ProductsListPage /> },
       { path: "product/:slug", element: <ProductPage /> },
+      { path: "*", element: <PageNotFound /> },
     ],
   },
-  /* { path: "*", element: <PageNotFound /> }, */
 ];
