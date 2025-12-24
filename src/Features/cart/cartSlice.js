@@ -2,15 +2,29 @@ import { createSelector, createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   items: [],
+  isCartOpen: false,
 };
 
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    openCart: (state) => {
+      state.isCartOpen = true;
+    },
+    closeCart: (state) => {
+      state.isCartOpen = false;
+    },
+    toggleCart: (state) => {
+      state.isCartOpen = !state.isCartOpen;
+    },
     addToCart: (state, action) => {
       const product = action.payload;
-      const alreadyInCart = state.items.find((i) => i.id === product.id);
+      const alreadyInCart = state.items.find(
+        (i) =>
+          i.id === product.id &&
+          i.selectedPlatform === product.selectedPlatform,
+      );
       if (alreadyInCart) {
         alreadyInCart.quantity += 1;
       } else {
@@ -18,13 +32,16 @@ const cartSlice = createSlice({
       }
     },
     removeFromCart: (state, action) => {
-      const id = action.payload;
-      state.items = state.items.filter((i) => i.id !== id);
+      const { id, selectedPlatform } = action.payload;
+      state.items = state.items.filter(
+        (i) => !(i.id === id && i.selectedPlatform === selectedPlatform),
+      );
     },
     clearCart: () => initialState,
   },
 });
 
+export const selectIsCartOpen = (state) => state.cart.isCartOpen;
 export const selectCartItems = (state) => state.cart.items;
 
 export const getTotalCartPrice = createSelector([selectCartItems], (items) =>
@@ -42,5 +59,12 @@ export const getTotalCartQuantity = createSelector(
   },
 );
 
-export const { addToCart, removeFromCart, clearCart } = cartSlice.actions;
+export const {
+  addToCart,
+  removeFromCart,
+  clearCart,
+  openCart,
+  closeCart,
+  toggleCart,
+} = cartSlice.actions;
 export default cartSlice.reducer;

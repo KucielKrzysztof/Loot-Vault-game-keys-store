@@ -1,11 +1,8 @@
 import { Info } from "lucide-react";
 
-function GameAbout({
-  description,
-  setShowDescription,
-  showDescription,
-  genre,
-}) {
+function GameAbout({ product, setShowDescription, showDescription }) {
+  const { description, genre } = product;
+
   const displayDescription = showDescription
     ? description
     : description.split(" ").slice(0, 40).join(" ") + "...";

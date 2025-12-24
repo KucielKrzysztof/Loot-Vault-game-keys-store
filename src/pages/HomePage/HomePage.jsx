@@ -15,7 +15,7 @@ function HomePage() {
 
   return (
     <div className="flex flex-col items-center">
-      {/* HOMER BANNER */}
+      {/* HOME BANNER */}
       <FullBanner>
         <FullBanner.Image src="/banner.png" alt="Home" />
       </FullBanner>

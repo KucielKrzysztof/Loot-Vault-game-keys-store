@@ -2,7 +2,7 @@ import { cn } from "../utils/cn";
 
 function FullBanner({
   children,
-  className = "h-[400px] md:h-[600px] overflow-hidden",
+  className = "h-[400px] md:h-[600px] overflow-hidden bg-neutral-900",
 }) {
   return (
     <section className={cn("relative w-full", className)}>{children}</section>

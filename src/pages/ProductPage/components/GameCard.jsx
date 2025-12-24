@@ -4,6 +4,7 @@ import { formatCurrency } from "../../../utils/formatters";
 import Select from "../../../ui/Select";
 import { useCart } from "../../../Features/cart/hooks/useCart";
 import { useState } from "react";
+import { notifyAddedToCart } from "../../../utils/notifications";
 
 function GameCard({ product }) {
   const {
@@ -18,7 +19,7 @@ function GameCard({ product }) {
     platforms,
   } = product;
 
-  const { addItem } = useCart();
+  const { addItem, open } = useCart();
 
   const [selectedPlatform, setSelectedPlatform] = useState(platforms[0]);
   const isPurchasable = inStock && typeof price === "number" && price > 0;
@@ -35,6 +36,7 @@ function GameCard({ product }) {
     const newItem = { ...product, selectedPlatform };
     addItem(newItem);
     console.log("Added to cart:", title, "on platform:", selectedPlatform);
+    notifyAddedToCart(product.title, selectedPlatform, open);
   }
 
   return (

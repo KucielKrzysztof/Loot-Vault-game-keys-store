@@ -8,7 +8,7 @@ import { cn } from "../../utils/cn";
 
 function NavBar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const { totalQuantity } = useCart();
+  const { totalQuantity, toggle } = useCart();
   const textOutline =
     "[text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]";
 
@@ -49,7 +49,10 @@ function NavBar() {
           >
             <Search size={30} />
           </button>
-          <button className="group relative text-gray-300 transition-all hover:text-white">
+          <button
+            onClick={toggle}
+            className="group relative text-gray-300 transition-all hover:text-white"
+          >
             <ShoppingCart size={30} />
             {totalQuantity > 0 && (
               <span

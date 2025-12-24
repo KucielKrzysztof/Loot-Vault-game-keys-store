@@ -1,15 +1,20 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
+import { Suspense } from "react";
 import NavBar from "./NavBar/NavBar";
 import Footer from "./Footer";
+import FullPageLoader from "./FullPageLoader";
 
 function AppLayout() {
+  const location = useLocation();
   return (
-    <div className="bg-background flex h-dvh flex-col items-center">
+    <div className="bg-background flex min-h-screen flex-col">
       <NavBar />
-      <main className="flex h-full w-full flex-col gap-15 overflow-x-hidden overflow-y-auto pt-15">
-        <Outlet />
-        <Footer />
+      <main className="h-full min-h-screen w-full grow overflow-x-hidden py-15">
+        <Suspense key={location.key} fallback={<FullPageLoader />}>
+          <Outlet />
+        </Suspense>
       </main>
+      <Footer />
     </div>
   );
 }

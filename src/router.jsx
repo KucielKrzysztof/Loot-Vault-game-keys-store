@@ -1,9 +1,12 @@
 import { Navigate } from "react-router-dom";
-import HomePage from "./pages/HomePage/HomePage";
-
 import AppLayout from "./ui/AppLayout";
-import ProductPage from "./pages/ProductPage/ProductPage";
-import ProductsListPage from "./pages/ProductsListPage/ProductsListPage";
+import { lazy } from "react";
+
+const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
+const ProductPage = lazy(() => import("./pages/ProductPage/ProductPage"));
+const ProductsListPage = lazy(
+  () => import("./pages/ProductsListPage/ProductsListPage"),
+);
 
 export const routes = [
   {

@@ -94,7 +94,7 @@ function GamesSkeleton() {
   return (
     <div className="bg-surface flex animate-pulse flex-col rounded-2xl p-2">
       <div className="bg-secondary/20 aspect-video w-full rounded-2xl" />
-      <div className="flex items-center justify-between gap-4 px-1 py-4">
+      <div className="flex items-center justify-between gap-4 px-1 py-3">
         <div className="bg-secondary/20 h-4 w-2/3 rounded-full" />
         <div className="bg-secondary/20 h-6 w-1/4 rounded-full" />
       </div>

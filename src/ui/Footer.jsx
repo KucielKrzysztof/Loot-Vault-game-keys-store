@@ -22,7 +22,7 @@ function Footer() {
     "flex flex-col items-center justify-center py-10 px-6 border-gray-500 lg:my-2";
 
   return (
-    <footer className="bg-surface text-gray-400">
+    <footer className="bg-surface mt-auto w-full text-gray-400">
       <div className="grid grid-cols-1 lg:grid-cols-3">
         {/* LINKS */}
         <div className={`${sectionClasses} gap-2 border-b lg:border-b-0`}>

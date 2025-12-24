@@ -17,20 +17,7 @@ function ProductPage() {
   if (!product)
     return <div className="pt-20 text-white">Product not found</div>;
 
-  const {
-    title,
-    price,
-    originalPrice,
-    discount,
-    platforms,
-    region,
-    genre,
-    image,
-    inStock,
-    rating,
-    description,
-    requirements,
-  } = product;
+  const { title, image } = product;
 
   return (
     <div className="bg-background relative w-full">
@@ -49,15 +36,14 @@ function ProductPage() {
 
         <PageSection>
           <GameAbout
-            description={description}
+            product={product}
             setShowDescription={setShowDescription}
             showDescription={showDescription}
-            genre={genre}
           />
         </PageSection>
 
         <PageSection>
-          <GameRequirements requirements={requirements} />
+          <GameRequirements requirements={product.requirements} />
         </PageSection>
       </div>
     </div>
