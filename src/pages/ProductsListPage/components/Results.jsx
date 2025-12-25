@@ -21,7 +21,7 @@ function Results({
   ];
 
   return (
-    <div className="bg-surface/80 rounded-2xl px-5 py-3 backdrop-blur-2xl">
+    <div className="bg-surface/80 flex min-h-full flex-col rounded-2xl px-5 py-3 backdrop-blur-2xl">
       <div className="flex justify-between">
         <div className="font-bold">
           Games found: {isLoading ? "..." : count}
@@ -52,14 +52,21 @@ function Results({
       </GamesGrid>
 
       {numOfPages > 1 && (
-        <div className="flex gap-4 py-10">
-          <Button disabled={page <= 1} onClick={() => onPageChange(page - 1)}>
+        <div className="mt-auto flex items-center gap-4">
+          <Button
+            variant="secondary"
+            className="w-28"
+            disabled={page <= 1}
+            onClick={() => onPageChange(page - 1)}
+          >
             Previous
           </Button>
           <span className="text-white">
             Page {page} of {numOfPages}
           </span>
           <Button
+            variant="secondary"
+            className="w-28"
             disabled={page >= numOfPages}
             onClick={() => onPageChange(page + 1)}
           >
