@@ -6,7 +6,11 @@ const SelectContext = createContext();
 function Select({
   children,
   label = "choose",
-  options = ["1", "2", "3"],
+  options = [
+    { value: "1", name: "one" },
+    { value: "2", name: "two" },
+    { value: "3", name: "three" },
+  ],
   className = "",
 }) {
   return (
@@ -27,14 +31,14 @@ function Label({ className }) {
   const { label } = useContext(SelectContext);
   if (!label) return null;
   return (
-    <label
+    <div
       className={cn(
         "text-primary text-sm font-bold tracking-widest uppercase",
         className,
       )}
     >
       {label}
-    </label>
+    </div>
   );
 }
 
@@ -52,11 +56,11 @@ function Content({ className, value, onChange }) {
     >
       {options.map((o) => (
         <option
-          key={o}
-          value={o}
+          key={o.value}
+          value={o.value}
           className={cn("bg-background/60 text-white", className)}
         >
-          {o}
+          {o.name}
         </option>
       ))}
     </select>

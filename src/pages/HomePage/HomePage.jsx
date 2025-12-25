@@ -13,7 +13,7 @@ function HomePage() {
   const placeholderURL =
     "https://gaming-cdn.com/images/products/16007/orig/elden-ring-shadow-of-the-erdtree-edition-shadow-of-the-erdtree-edition-pc-game-steam-europe-cover.jpg?v=1718975409";
 
-  const { isPending, data: products, error } = useProducts();
+  const { isPending, products, error } = useProducts();
 
   if (error) return <p className="text-white">Error Loading data!</p>;
 

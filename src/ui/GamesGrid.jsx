@@ -56,7 +56,14 @@ function GamesList() {
 function GamesItem({ game }) {
   const navigate = useNavigate();
 
-  const { title, slug, price, originalPrice, discount, image } = game;
+  const {
+    title,
+    slug,
+    price,
+    original_price: originalPrice,
+    discount,
+    image,
+  } = game;
   return (
     <div className="bg-surface flex flex-col rounded-2xl p-2">
       <div className="aspect-16:9 group relative rounded-xl">
