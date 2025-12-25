@@ -1,3 +1,4 @@
+import { useFilterOptions } from "../../../Features/products/hooks/useFilterOptions";
 import Button from "../../../ui/Button";
 import CheckBoxWrapper from "../../../ui/CheckBoxWrapper";
 import PriceRange from "./PriceRange";
@@ -13,17 +14,12 @@ function FilterContent({
   setTempPlatform,
   onApply,
 }) {
-  const genres = [
-    "action",
-    "shooter",
-    "fighting",
-    "sports",
-    "adventure",
-    "rpg",
-    "story-rich",
-    "open-world",
-  ];
-  const platforms = ["steam", "gog", "xbox", "ps5"];
+  const { isPending, genres, platforms } = useFilterOptions();
+
+  if (isPending)
+    return (
+      <div className="animate-pulse p-4 text-white/20">Loading filters...</div>
+    );
 
   return (
     <div className="flex flex-col gap-6">
@@ -32,12 +28,15 @@ function FilterContent({
           Categories
         </h2>
         <div className="flex flex-col gap-2">
-          {genres.map((g) => (
+          {genres?.map((g) => (
             <CheckBoxWrapper
-              key={g}
-              id={g}
-              checked={tempGenre === g}
-              onChange={() => setTempGenre(g === tempGenre ? "all" : g)}
+              key={g.value}
+              id={g.value}
+              label={g.name}
+              checked={tempGenre === g.value}
+              onChange={() =>
+                setTempGenre(g.value === tempGenre ? "all" : g.value)
+              }
             />
           ))}
         </div>
@@ -48,15 +47,17 @@ function FilterContent({
           Platforms
         </h2>
         <div className="flex flex-col gap-2">
-          {platforms.map((p) => (
+          {platforms?.map((p) => (
             <CheckBoxWrapper
-              key={p}
-              id={p}
-              label={p}
-              checked={tempPlatform === p.toLowerCase()}
+              key={p.value}
+              id={p.value}
+              label={p.name}
+              checked={tempPlatform === p.value.toLowerCase()}
               onChange={() =>
                 setTempPlatform(
-                  p.toLowerCase() === tempPlatform ? "all" : p.toLowerCase(),
+                  p.value.toLowerCase() === tempPlatform
+                    ? "all"
+                    : p.value.toLowerCase(),
                 )
               }
             />

@@ -25,7 +25,7 @@ function ProductPage() {
       <div className="absolute inset-0 z-0 h-[500px] w-full lg:h-[600px]">
         <FullBanner>
           <FullBanner.Image src={image} alt={title} />
-          <FullBanner.Overlay />
+          <FullBanner.Overlay className="bg-black/30 backdrop-blur-md" />
         </FullBanner>
       </div>
       {/* MAIN CONTENT */}

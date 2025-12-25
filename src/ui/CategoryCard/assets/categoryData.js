@@ -17,30 +17,36 @@ export const CATEGORIES = [
     title: "Action",
     bg: actionBg,
     char: actionChar,
+    value: "action",
   },
   {
-    title: "Shooter",
+    title: "FPS",
     bg: shooterBg,
     char: shooterChar,
+    value: "fps",
   },
   {
     title: "Fighting",
     bg: fightingBg,
     char: fightingChar,
+    value: "fighting",
   },
   {
     title: "Sports",
     bg: sportsBg,
     char: sportsChar,
+    value: "sports",
   },
   {
     title: "Adventure",
     bg: adventureBg,
     char: adventureChar,
+    value: "adventure",
   },
   {
     title: "RPG",
     bg: rpgBg,
     char: rpgChar,
+    value: "rpg",
   },
 ];

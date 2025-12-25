@@ -1,3 +1,4 @@
+import { formatLabel } from "../Features/products/hooks/helpers/labelFormatter";
 import { supabase } from "./supabase";
 
 export async function getProducts({ filter, sortBy, page, pageSize = 12 }) {
@@ -54,4 +55,28 @@ export async function getProduct(slug) {
   }
 
   return data;
+}
+
+export async function getFilterOptions() {
+  const { data: genres, error: genreError } = await supabase
+    .from("unique_genres")
+    .select("name");
+  const { data: platforms, error: platError } = await supabase
+    .from("unique_platforms")
+    .select("name");
+
+  console.log("Pobrane opcje:", { genres, platforms });
+
+  if (genreError || platError) throw new Error("Could not load filter options");
+
+  return {
+    genres: (genres || []).map((g) => ({
+      value: g.name.toLowerCase(),
+      name: formatLabel(g.name),
+    })),
+    platforms: (platforms || []).map((p) => ({
+      value: p.name.toLowerCase(),
+      name: formatLabel(p.name),
+    })),
+  };
 }

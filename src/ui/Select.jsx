@@ -6,15 +6,18 @@ const SelectContext = createContext();
 function Select({
   children,
   label = "choose",
-  options = [
-    { value: "1", name: "one" },
-    { value: "2", name: "two" },
-    { value: "3", name: "three" },
-  ],
+  options = ["one", "two", "three"],
   className = "",
 }) {
+  const normalizedOptions = options.map((opt) => {
+    if (typeof opt === "string") {
+      return { value: opt, name: opt };
+    }
+    return opt;
+  });
+
   return (
-    <SelectContext.Provider value={{ label, options }}>
+    <SelectContext.Provider value={{ label, options: normalizedOptions }}>
       <div
         className={cn(
           "flex flex-col items-center justify-center gap-2 p-3",
@@ -42,12 +45,11 @@ function Label({ className }) {
   );
 }
 
-function Content({ className, value, onChange }) {
+function Content({ className, onChange }) {
   const { options } = useContext(SelectContext);
 
   return (
     <select
-      value={value}
       onChange={onChange}
       className={cn(
         "bg-background/60 hover:border-primary/50 focus:border-primary w-full cursor-pointer rounded-xl border border-white/10 px-4 py-3 text-sm font-medium text-white capitalize transition-all outline-none",

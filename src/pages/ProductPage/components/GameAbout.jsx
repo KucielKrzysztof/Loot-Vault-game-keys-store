@@ -1,4 +1,5 @@
 import { Info } from "lucide-react";
+import { formatLabel } from "../../../Features/products/hooks/helpers/labelFormatter";
 
 function GameAbout({ product, setShowDescription, showDescription }) {
   const { description, genre } = product;
@@ -36,7 +37,7 @@ function GameAbout({ product, setShowDescription, showDescription }) {
                 key={g}
                 className="hover:bg-primary/20 cursor-default rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold transition-colors"
               >
-                {g}
+                {formatLabel(g)}
               </div>
             ))}
           </div>

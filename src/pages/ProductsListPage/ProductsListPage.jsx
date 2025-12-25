@@ -4,7 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { SlidersHorizontal, X } from "lucide-react";
 import PageSection from "../../ui/PageSection";
 import FilterContent from "./components/FilterContent";
-import Results from "./components/ProductsListFilterResults";
+import Results from "./components/Results";
 import Button from "../../ui/Button";
 
 function ProductsListPage() {

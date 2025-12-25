@@ -1,6 +1,11 @@
-function CategoryCard({ title, bgImage, charImage }) {
+import { Link } from "react-router-dom";
+
+function CategoryCard({ title, bgImage, charImage, to }) {
   return (
-    <div className="group relative mt-4 mt-8 aspect-4/3 w-full cursor-pointer sm:mt-8">
+    <Link
+      to={to}
+      className="group relative mt-4 mt-8 aspect-4/3 w-full cursor-pointer sm:mt-8"
+    >
       {/* BG CONTAINER*/}
       <div className="bg-surface group-hover:border-primary/50 absolute bottom-0 h-[85%] w-full overflow-hidden rounded-2xl border border-white/5 transition-all duration-300 group-hover:shadow-[0_0_20px_rgba(134,91,206,0.2)]">
         {/* BG IMG */}
@@ -24,7 +29,7 @@ function CategoryCard({ title, bgImage, charImage }) {
         alt=""
         className="pointer-events-none absolute right-0 bottom-0 h-full w-auto object-contain transition-transform duration-300 group-hover:-translate-y-2 group-hover:scale-105"
       />
-    </div>
+    </Link>
   );
 }
 export default CategoryCard;

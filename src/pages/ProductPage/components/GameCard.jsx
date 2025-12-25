@@ -89,6 +89,7 @@ function GameCard({ product }) {
           <Select.Label />
           <Select.Content
             onChange={(e) => setSelectedPlatform(e.target.value)}
+            className="uppercase"
           />
         </Select>
 

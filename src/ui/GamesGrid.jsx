@@ -82,16 +82,16 @@ function GamesItem({ game }) {
         )}
       </div>
 
-      <div className="flex items-center justify-between px-1 py-3">
-        <span className="sm:text-md truncate text-[13px]">{title}</span>
-        <span className="text-secondary flex items-center gap-1 text-sm md:text-lg">
+      <div className="flex w-full min-w-0 flex-col items-center justify-between px-1 py-3">
+        <div className="sm:text-md w-full truncate text-[13px]">{title}</div>
+        <div className="text-secondary flex items-center gap-1 text-sm md:text-lg">
           {discount > 0 && (
             <span className="text-[11px] text-gray-400 line-through md:text-sm">
               ${formatCurrency(originalPrice)}
             </span>
           )}
           <strong>${formatCurrency(price)}</strong>
-        </span>
+        </div>
       </div>
     </div>
   );
