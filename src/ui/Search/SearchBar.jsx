@@ -2,12 +2,18 @@ import { Search, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import SearchDropdown from "../Search/SearchDropdown";
 import { useNavigate } from "react-router-dom";
+import { useDebounce } from "../../hooks/useDebounce";
+import { useSearch } from "../../Features/products/hooks/useSearch";
 
 function SearchBar({ isOpen, onClose }) {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
-  /* cosnt debounced query */
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const debouncedQuery = useDebounce(query, 500);
+  const { isPending, results, error } = useSearch(debouncedQuery);
+
+  const showSearchResults = isDropdownOpen && query.length >= 3 && results;
 
   function clearQuery() {
     setIsDropdownOpen(false);
@@ -34,10 +40,8 @@ function SearchBar({ isOpen, onClose }) {
       : "hidden lg:flex lg:absolute lg:top-1/2 lg:left-1/2 lg:-translate-x-1/2 lg:-translate-y-1/2 lg:w-100 lg:max-w-xs"
   }`;
 
-  const barClasses = `bg-surface flex w-full items-center gap-1 px-3 py-2 transition-all duration-100 border  border-white/10 hover:border-white/30 focus-within:border-white/30 ${
-    isDropdownOpen
-      ? "rounded-t-3xl border-b-transparent shadow-none hover:border-b-transparent focus-within:border-b-transparent"
-      : "rounded-full shadow-lg"
+  const barClasses = `bg-surface flex w-full items-center gap-1 px-3 py-2 transition-all duration-100    ${
+    isDropdownOpen ? "rounded-t-3xl  shadow-none" : "rounded-full shadow-lg "
   }`;
 
   return (
@@ -59,7 +63,14 @@ function SearchBar({ isOpen, onClose }) {
           <X size={18} onClick={() => clearQuery()} />
         </button>
       </div>
-      {isDropdownOpen && <SearchDropdown onSelect={handleSelect} />}
+      {showSearchResults && (
+        <SearchDropdown
+          results={results}
+          isPending={isPending}
+          error={error}
+          onSelect={handleSelect}
+        />
+      )}
     </div>
   );
 }

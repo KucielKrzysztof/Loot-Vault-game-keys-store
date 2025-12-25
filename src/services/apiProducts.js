@@ -42,6 +42,22 @@ export async function getProducts({ filter, sortBy, page, pageSize = 12 }) {
   return { data, count };
 }
 
+export async function searchProducts(debouncedQuery) {
+  if (!debouncedQuery || debouncedQuery.trim().length < 3) return [];
+  const { data, error } = await supabase
+    .from("products")
+    .select("id, title, slug, price, original_price, image")
+    .ilike("title", `%${debouncedQuery}%`)
+    .limit(10);
+
+  if (error) {
+    console.error(error);
+    throw new Error("Search error");
+  }
+
+  return data;
+}
+
 export async function getProduct(slug) {
   const { data, error } = await supabase
     .from("products")

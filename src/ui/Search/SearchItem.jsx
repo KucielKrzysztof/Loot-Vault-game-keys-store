@@ -1,10 +1,10 @@
 import { formatCurrency } from "../../utils/formatters";
 
-function SearchItem({ title, slug, price, image, onSelect }) {
+function SearchItem({ title, slug, price, originalPrice, image, onSelect }) {
   return (
     <div
       onClick={() => onSelect(slug)}
-      className="group mx-2 flex cursor-pointer items-center justify-start gap-2 border-b border-b-white/20 p-2 transition-all hover:bg-white/5"
+      className="group flex cursor-pointer items-center justify-start gap-2 border-b border-b-white/20 p-2 transition-all hover:bg-white/5"
     >
       <div className="w-30 shrink-0 overflow-hidden rounded-lg border border-white/10">
         <img
@@ -16,7 +16,12 @@ function SearchItem({ title, slug, price, image, onSelect }) {
         <div className="group-hover:text-primary flex w-full justify-start text-sm font-bold text-white transition-colors">
           <span className="truncate font-bold">{title}</span>
         </div>
-        <div className="text-secondary ml-auto">${formatCurrency(price)}</div>
+        <div className="text-secondary ml-auto flex gap-2">
+          <span className="text-[13px] text-gray-500 line-through">
+            ${formatCurrency(originalPrice)}
+          </span>
+          <span className="text-sm">${formatCurrency(price)}</span>
+        </div>
       </div>
     </div>
   );
