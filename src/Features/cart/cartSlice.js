@@ -1,8 +1,33 @@
-import { createSelector, createSlice } from "@reduxjs/toolkit";
+import {
+  createAsyncThunk,
+  createSelector,
+  createSlice,
+} from "@reduxjs/toolkit";
+import { getProductStockAndPrice } from "../../services/apiProducts";
+
+export const addItemWithStockCheck = createAsyncThunk(
+  "cart/addItemWithStockCheck",
+  async (product, { dispatch, rejectWithValue }) => {
+    try {
+      const latestData = await getProductStockAndPrice(product.id);
+
+      if (!latestData.in_stock) {
+        return rejectWithValue("Out of stock! Someone was faster than you.");
+      }
+
+      dispatch(addToCart({ ...product, price: latestData.price }));
+
+      return latestData;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
 
 const initialState = {
   items: [],
   isCartOpen: false,
+  status: "idle",
 };
 
 const cartSlice = createSlice({
@@ -37,7 +62,9 @@ const cartSlice = createSlice({
         (i) => !(i.id === id && i.selectedPlatform === selectedPlatform),
       );
     },
-    clearCart: () => initialState,
+    clearCart: (state) => {
+      state.items = [];
+    },
     increaseItemQuantity(state, action) {
       const item = state.items.find(
         (item) =>
@@ -60,10 +87,24 @@ const cartSlice = createSlice({
       }
     },
   },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(addItemWithStockCheck.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addItemWithStockCheck.fulfilled, (state) => {
+        state.status = "idle";
+      })
+      .addCase(addItemWithStockCheck.rejected, (state) => {
+        state.status = "idle";
+      });
+  },
 });
 
 export const selectIsCartOpen = (state) => state.cart.isCartOpen;
 export const selectCartItems = (state) => state.cart.items;
+export const selectCartStatus = (state) => state.cart.status;
 
 export const getTotalCartPrice = createSelector([selectCartItems], (items) =>
   items

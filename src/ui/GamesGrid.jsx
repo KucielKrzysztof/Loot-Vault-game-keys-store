@@ -63,6 +63,7 @@ function GamesItem({ game }) {
     original_price: originalPrice,
     discount,
     image,
+    in_stock: inStock,
   } = game;
   return (
     <div className="bg-surface flex flex-col rounded-2xl p-2">
@@ -70,12 +71,13 @@ function GamesItem({ game }) {
         <img
           src={image}
           alt={title}
-          className="h-full w-full overflow-hidden rounded-2xl object-cover transition-all duration-200 hover:scale-110 hover:cursor-pointer"
+          className={`h-full w-full overflow-hidden rounded-2xl object-cover transition-all duration-200 hover:scale-110 hover:cursor-pointer ${!inStock && "grayscale"}`}
           onClick={() => {
             navigate(`/product/${slug}`);
           }}
         />
-        {discount > 0 && (
+
+        {discount > 0 && inStock && (
           <span className="bg-secondary transform-all pointer-events-none absolute bottom-1 left-1 rounded-2xl px-2 py-1 text-xs font-bold text-white opacity-100 duration-200 group-hover:translate-y-2 group-hover:opacity-0">
             -{discount}%
           </span>
@@ -83,14 +85,27 @@ function GamesItem({ game }) {
       </div>
 
       <div className="flex w-full min-w-0 flex-col items-center justify-between px-1 py-3">
-        <div className="sm:text-md w-full truncate text-[13px]">{title}</div>
-        <div className="text-secondary flex items-center gap-1 text-sm md:text-lg">
-          {discount > 0 && (
-            <span className="text-[11px] text-gray-400 line-through md:text-sm">
-              ${formatCurrency(originalPrice)}
+        <div
+          className={`sm:text-md w-full truncate text-[13px] ${!inStock && "opacity-50"}`}
+        >
+          {title}
+        </div>
+
+        <div className="flex items-center gap-1 text-sm md:text-lg">
+          {inStock ? (
+            <div className="text-secondary flex items-center gap-1">
+              {discount > 0 && (
+                <span className="text-[11px] text-gray-400 line-through md:text-sm">
+                  ${formatCurrency(originalPrice)}
+                </span>
+              )}
+              <strong>${formatCurrency(price)}</strong>
+            </div>
+          ) : (
+            <span className="text-xs font-bold tracking-wider text-red-500 uppercase md:text-sm">
+              Out of stock
             </span>
           )}
-          <strong>${formatCurrency(price)}</strong>
         </div>
       </div>
     </div>

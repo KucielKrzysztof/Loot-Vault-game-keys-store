@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
-  addToCart as addToCartAction,
+  addItemWithStockCheck as addItemWithStockCheckAction,
   removeFromCart as removeFromCartAction,
   clearCart as clearCartAction,
   openCart as openCartAction,
@@ -12,20 +12,22 @@ import {
   getTotalCartPrice,
   selectCartItems,
   selectIsCartOpen,
+  selectCartStatus,
 } from "../cartSlice";
 import { useCallback } from "react";
 
 export const useCart = () => {
   const dispatch = useDispatch();
 
+  const status = useSelector(selectCartStatus);
   const cartItems = useSelector(selectCartItems);
   const isCartOpen = useSelector(selectIsCartOpen);
   const totalPrice = useSelector(getTotalCartPrice);
   const totalQuantity = useSelector(getTotalCartQuantity);
 
   const addItem = useCallback(
-    (product) => {
-      dispatch(addToCartAction(product));
+    async (product) => {
+      return await dispatch(addItemWithStockCheckAction(product)).unwrap();
     },
     [dispatch],
   );
@@ -60,6 +62,7 @@ export const useCart = () => {
   return {
     cart: cartItems,
     addItem,
+    isCheckingStock: status === "loading",
     removeItem,
     clear,
     totalPrice,

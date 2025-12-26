@@ -1,10 +1,11 @@
-import { CheckCircle, Globe, ShoppingCart, Star } from "lucide-react";
+import { CheckCircle, Globe, Star } from "lucide-react";
 import Button from "../../../ui/Button";
 import { formatCurrency } from "../../../utils/formatters";
 import Select from "../../../ui/Select";
 import { useCart } from "../../../Features/cart/hooks/useCart";
 import { useState } from "react";
-import { notifyAddedToCart } from "../../../utils/notifications";
+import { notifyAddedToCart, notifyError } from "../../../utils/notifications";
+import { useQueryClient } from "@tanstack/react-query";
 
 function GameCard({ product }) {
   const {
@@ -19,24 +20,30 @@ function GameCard({ product }) {
     platforms,
   } = product;
 
-  const { addItem, open } = useCart();
+  const queryClient = useQueryClient();
+
+  const { addItem, open, isCheckingStock } = useCart();
 
   const [selectedPlatform, setSelectedPlatform] = useState(platforms[0]);
   const isPurchasable = inStock && typeof price === "number" && price > 0;
 
-  function handleAddToCart() {
+  async function handleAddToCart() {
     if (!product) return;
+    if (!isPurchasable) return;
 
-    if (!isPurchasable) {
-      console.error(
-        `Can't add product "${title}" - Invalid price or Not in stock`,
-      );
-      return;
-    }
     const newItem = { ...product, selectedPlatform };
-    addItem(newItem);
-    console.log("Added to cart:", title, "on platform:", selectedPlatform);
-    notifyAddedToCart(product.title, selectedPlatform, open);
+    try {
+      await addItem(newItem);
+
+      console.log("Added to cart:", title, "on platform:", selectedPlatform);
+      notifyAddedToCart(product.title, selectedPlatform, open);
+    } catch (error) {
+      notifyError("Could not add item to cart", error);
+      queryClient.invalidateQueries({ queryKey: ["products"] });
+      if (product.slug) {
+        queryClient.invalidateQueries({ queryKey: ["product", product.slug] });
+      }
+    }
   }
 
   return (
@@ -45,7 +52,7 @@ function GameCard({ product }) {
         <img
           src={image}
           alt={title}
-          className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+          className={`h-full w-full object-cover transition-transform duration-500 hover:scale-105 ${!inStock && "grayscale"}`}
         />
       </div>
 
@@ -97,10 +104,16 @@ function GameCard({ product }) {
           <Button
             variant="primary"
             className={`uppercase ${!isPurchasable && "bg-gray-500 hover:bg-gray-500"}`}
-            disabled={!isPurchasable}
+            disabled={!isPurchasable || isCheckingStock}
             onClick={() => handleAddToCart()}
           >
-            <span>{isPurchasable ? "Add To Cart" : "Can't purchase"}</span>
+            <span>
+              {isCheckingStock
+                ? "Checking..."
+                : isPurchasable
+                  ? "Add To Cart"
+                  : "Out of Stock"}
+            </span>
           </Button>
         </div>
       </div>

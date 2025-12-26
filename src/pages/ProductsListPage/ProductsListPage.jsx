@@ -58,8 +58,8 @@ function ProductsListPage() {
           </Button>
         </div>
 
-        <div className="grid w-full grid-cols-1 gap-6 py-10 md:grid-cols-[280px_1fr]">
-          <aside className="bg-surface/80 sticky top-24 hidden h-fit rounded-2xl p-6 backdrop-blur-2xl md:block">
+        <div className="grid w-full grid-cols-1 items-start gap-6 py-10 md:grid-cols-[280px_1fr]">
+          <aside className="bg-surface/80 sticky hidden h-fit rounded-2xl p-6 backdrop-blur-2xl md:block">
             <FilterContent {...filterProps} />
           </aside>
           <Results
@@ -102,7 +102,7 @@ function ProductsListPage() {
               <X size={24} />
             </button>
           </div>
-          <div className="h-[calc(100vh-150px)] overflow-y-auto pr-2">
+          <div className="h-[calc(100vh-150px)] overflow-y-auto">
             <FilterContent {...filterProps} />
           </div>
         </div>

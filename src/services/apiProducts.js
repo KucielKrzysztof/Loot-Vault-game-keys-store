@@ -73,6 +73,16 @@ export async function getProduct(slug) {
   return data;
 }
 
+export async function getProductStockAndPrice(id) {
+  const { data, error } = await supabase
+    .from("products")
+    .select("in_stock, price")
+    .eq("id", id)
+    .single();
+  if (error) throw new Error("Could not verify stock status");
+  return data;
+}
+
 export async function getFilterOptions() {
   const { data: genres, error: genreError } = await supabase
     .from("unique_genres")

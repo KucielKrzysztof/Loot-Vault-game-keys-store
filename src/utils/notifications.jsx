@@ -1,6 +1,5 @@
 import { toast } from "react-hot-toast";
-import { ShoppingBag } from "lucide-react";
-import { useCart } from "../Features/cart/hooks/useCart";
+import { X } from "lucide-react";
 
 export function notifyAddedToCart(game, platform, openCart) {
   toast.success(
@@ -50,6 +49,30 @@ export const notifyGeneric = (message, buttonTxt, handleClick) => {
           className="flex flex-col items-center justify-center rounded-lg border border-white/5 bg-white/5 px-3 py-2 text-[11px] font-black tracking-wider text-white uppercase transition-all hover:bg-white/10 active:scale-95"
         >
           {buttonTxt}
+        </button>
+      </div>
+    ),
+    { duration: 4000 },
+  );
+};
+
+export const notifyError = (message, error) => {
+  toast.error(
+    (t) => (
+      <div className="flex min-w-[280px] items-center justify-between gap-4 py-1">
+        <div>
+          <h3 className="text-sm leading-tight font-black text-red-500">
+            {message}
+          </h3>
+          <p>{error}</p>
+        </div>
+        <button
+          onClick={() => {
+            toast.dismiss(t.id);
+          }}
+          className="flex flex-col items-center justify-center rounded-lg border border-white/5 bg-white/5 px-3 py-2 text-[11px] text-red-500 transition-all"
+        >
+          <X />
         </button>
       </div>
     ),
