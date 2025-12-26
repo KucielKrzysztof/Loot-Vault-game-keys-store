@@ -1,24 +1,39 @@
 import { Search, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import SearchDropdown from "../Search/SearchDropdown";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../hooks/useDebounce";
 import { useSearch } from "../../Features/products/hooks/useSearch";
+import { useClickOutside } from "../../hooks/useClickOutside";
+import { useKeyDown } from "../../hooks/useKeyDown";
 
-function SearchBar({ isOpen, onClose }) {
+function SearchBar({ isOpen, setOpen, isLargeScreen }) {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+  const searchRef = useRef();
+  const inputRef = useRef();
 
   const debouncedQuery = useDebounce(query, 500);
   const { isPending, results, error } = useSearch(debouncedQuery);
 
   const showSearchResults = isDropdownOpen && query.length >= 3 && results;
 
-  function clearQuery() {
+  const clearQuery = useCallback(() => {
     setIsDropdownOpen(false);
     setQuery("");
-  }
+    if (isOpen) {
+      setOpen(false);
+    }
+  }, [isOpen, setOpen]);
+
+  const focusSearch = useCallback(() => {
+    if (!isLargeScreen && !isOpen) {
+      setOpen(true);
+    }
+    inputRef.current?.focus();
+  }, [isOpen, setOpen, isLargeScreen]);
 
   function handleSelect(slug) {
     navigate(`/product/${slug}`);
@@ -34,6 +49,10 @@ function SearchBar({ isOpen, onClose }) {
     }
   }, [query]);
 
+  useClickOutside(searchRef, isDropdownOpen ? clearQuery : null);
+  useKeyDown("Escape", isOpen || isDropdownOpen ? clearQuery : null);
+  useKeyDown("Enter", focusSearch);
+
   const positionClasses = `${
     isOpen
       ? "fixed inset-x-10 top-1/2 -translate-y-1/2 z-50 animate-in fade-in zoom-in duration-200"
@@ -45,10 +64,11 @@ function SearchBar({ isOpen, onClose }) {
   }`;
 
   return (
-    <div className={`${positionClasses}`}>
+    <div ref={searchRef} className={`${positionClasses}`}>
       <div className={`${barClasses}`}>
         <Search size={18} className="shrink-0" />
         <input
+          ref={inputRef}
           type="text"
           placeholder="search"
           autoFocus={isOpen}
@@ -58,9 +78,9 @@ function SearchBar({ isOpen, onClose }) {
         />
         <button
           className="shrink-0 text-gray-300 transition-colors hover:text-white"
-          onClick={onClose}
+          onClick={clearQuery}
         >
-          <X size={18} onClick={() => clearQuery()} />
+          <X size={18} onClick={clearQuery} />
         </button>
       </div>
       {showSearchResults && (

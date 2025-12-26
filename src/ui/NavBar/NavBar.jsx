@@ -5,6 +5,7 @@ import SearchBar from "../Search/SearchBar";
 import Logo from "./Logo";
 import { useCart } from "../../Features/cart/hooks/useCart";
 import { cn } from "../../utils/cn";
+import { useMediaQuery } from "../../hooks/useMediaQuery";
 
 function NavBar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -12,16 +13,11 @@ function NavBar() {
   const textOutline =
     "[text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]";
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setIsSearchOpen(false);
-      }
-    };
+  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
 
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  useEffect(() => {
+    if (isLargeScreen) setIsSearchOpen(false);
+  }, [isLargeScreen]);
 
   return (
     <nav className="bg-primary/80 fixed top-0 z-50 h-16 w-full border-b border-white/10 p-2 backdrop-blur-sm">
@@ -37,7 +33,8 @@ function NavBar() {
 
         <SearchBar
           isOpen={isSearchOpen}
-          onClose={() => setIsSearchOpen(false)}
+          setOpen={setIsSearchOpen}
+          isLargeScreen={isLargeScreen}
         />
 
         <div
