@@ -84,14 +84,14 @@ function ProductsListPage() {
       </PageSection>
       {/* mobile drawer */}
       <div
-        className={`fixed inset-0 z-[100] transition-all duration-300 md:hidden ${isMobileMenuOpen ? "visible opacity-100" : "invisible opacity-0"}`}
+        className={`fixed inset-0 z-100 transition-all duration-300 md:hidden ${isMobileMenuOpen ? "visible opacity-100" : "invisible opacity-0"}`}
       >
         <div
           className="absolute inset-0 bg-black/60 backdrop-blur-sm"
           onClick={() => setIsMobileMenuOpen(false)}
         />
         <div
-          className={`bg-background absolute top-0 left-0 h-full w-[85%] max-w-sm p-6 shadow-2xl transition-transform duration-300 ${isMobileMenuOpen ? "-translate-x-0" : "-translate-x-full"}`}
+          className={`bg-background absolute top-0 left-0 h-full w-[85%] max-w-sm p-6 shadow-2xl transition-transform duration-300 ${isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className="mb-8 flex items-center justify-between">
             <h2 className="text-xl font-bold">Filters</h2>

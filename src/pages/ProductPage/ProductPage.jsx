@@ -22,7 +22,7 @@ function ProductPage() {
   return (
     <div className="bg-background relative h-full w-full">
       {/* BG BANNER */}
-      <div className="absolute inset-0 z-0 h-[500px] w-full lg:h-[600px]">
+      <div className="absolute inset-0 z-0 h-125 w-full lg:h-150">
         <FullBanner>
           <FullBanner.Image src={image} alt={title} />
           <FullBanner.Overlay className="bg-black/30 backdrop-blur-md" />

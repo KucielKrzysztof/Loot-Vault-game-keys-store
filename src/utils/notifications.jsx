@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 export function notifyAddedToCart(game, platform, openCart) {
   toast.success(
     (t) => (
-      <div className="flex min-w-[280px] items-center gap-4 py-1">
+      <div className="flex min-w-70 items-center gap-4 py-1">
         <div className="flex flex-1 flex-col">
           <strong className="block text-[10px] font-bold tracking-widest text-emerald-400 uppercase italic">
             Added To Cart!
@@ -36,7 +36,7 @@ export function notifyAddedToCart(game, platform, openCart) {
 export const notifyGeneric = (message, buttonTxt, handleClick) => {
   toast.success(
     (t) => (
-      <div className="flex min-w-[280px] items-center justify-between gap-4 py-1">
+      <div className="flex min-w-70 items-center justify-between gap-4 py-1">
         <h3 className="text-sm leading-tight font-black text-white">
           {message}
         </h3>
@@ -59,7 +59,7 @@ export const notifyGeneric = (message, buttonTxt, handleClick) => {
 export const notifyError = (message, error) => {
   toast.error(
     (t) => (
-      <div className="flex min-w-[280px] items-center justify-between gap-4 py-1">
+      <div className="flex min-w-70 items-center justify-between gap-4 py-1">
         <div>
           <h3 className="text-sm leading-tight font-black text-red-500">
             {message}

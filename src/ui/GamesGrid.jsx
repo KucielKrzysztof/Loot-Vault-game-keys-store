@@ -22,7 +22,7 @@ function GamesHeader({ children, to }) {
       <span className="inline-block">{children}</span>
       <ChevronRight
         size={22}
-        className="translate-y-[2px] transition-transform group-hover:translate-x-1"
+        className="translate-y-0.5 transition-transform group-hover:translate-x-1"
       />
     </Link>
   );
