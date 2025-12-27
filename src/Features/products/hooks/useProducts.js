@@ -6,6 +6,8 @@ import {
 import { useSearchParams } from "react-router-dom";
 import { getProducts } from "../../../services/apiProducts";
 
+const PAGE_SIZE = 12;
+
 export const useProducts = () => {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
@@ -22,16 +24,27 @@ export const useProducts = () => {
   const filter = { genre, platform, minPrice, maxPrice };
   const sortBy = { field, direction };
 
+  const queryKey = [
+    "products",
+    genre,
+    platform,
+    minPrice,
+    maxPrice,
+    sortByRaw,
+    page,
+  ];
+  const nextStepKey = [
+    "products",
+    genre,
+    platform,
+    minPrice,
+    maxPrice,
+    sortByRaw,
+    page + 1,
+  ];
+
   const { isPending, data, error, isPlaceholderData } = useQuery({
-    queryKey: [
-      "products",
-      genre,
-      platform,
-      minPrice,
-      maxPrice,
-      sortByRaw,
-      page,
-    ],
+    queryKey: queryKey,
     queryFn: () => getProducts({ filter, sortBy, page }),
     placeholderData: keepPreviousData,
     staleTime: 60 * 1000 * 5,
@@ -42,23 +55,13 @@ export const useProducts = () => {
     enabled: true,
   });
 
-  const pageSize = 12;
   const count = data?.count || 0;
-  const numOfPages = Math.ceil(count / pageSize);
+  const numOfPages = Math.ceil(count / PAGE_SIZE);
 
   /* prefetch if more than one page */
   if (page < numOfPages) {
     queryClient.prefetchQuery({
-      queryKey: [
-        "products",
-        genre,
-        platform,
-        minPrice,
-        maxPrice,
-        sortByRaw,
-        page + 1,
-        sortBy,
-      ],
+      queryKey: nextStepKey,
       queryFn: () => getProducts({ filter, sortBy, page: page + 1 }),
     });
   }

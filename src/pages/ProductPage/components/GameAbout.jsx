@@ -1,5 +1,5 @@
 import { Info } from "lucide-react";
-import { formatLabel } from "../../../Features/products/hooks/helpers/labelFormatter";
+import { formatLabel } from "../../../Features/products/helpers/labelFormatter";
 
 function GameAbout({ product, setShowDescription, showDescription }) {
   const { description, genre } = product;

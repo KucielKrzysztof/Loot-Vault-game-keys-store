@@ -15,7 +15,7 @@ function StyledToaster() {
         },
         success: {
           iconTheme: {
-            primary: "#7c3aed", // Twój kolor primary (fioletowy?)
+            primary: "#7c3aed",
             secondary: "#fff",
           },
         },

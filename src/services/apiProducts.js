@@ -1,4 +1,4 @@
-import { formatLabel } from "../Features/products/hooks/helpers/labelFormatter";
+import { formatLabel } from "../Features/products/helpers/labelFormatter";
 import { supabase } from "./supabase";
 
 export async function getProducts({ filter, sortBy, page, pageSize = 12 }) {

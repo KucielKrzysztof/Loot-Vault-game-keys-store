@@ -1,6 +1,7 @@
 import { useFilterOptions } from "../../../Features/products/hooks/useFilterOptions";
 import Button from "../../../ui/Button";
 import CheckBoxWrapper from "../../../ui/CheckBoxWrapper";
+import FilterGroup from "./FilterGroup";
 import PriceRange from "./PriceRange";
 
 function FilterContent({
@@ -23,59 +24,48 @@ function FilterContent({
 
   return (
     <div className="flex flex-col gap-6">
-      <div>
-        <h2 className="mb-4 text-xs font-bold tracking-widest text-white uppercase opacity-50">
-          Categories
-        </h2>
-        <div className="flex flex-col gap-2">
-          {genres?.map((g) => (
-            <CheckBoxWrapper
-              key={g.value}
-              id={g.value}
-              label={g.name}
-              checked={tempGenre === g.value}
-              onChange={() =>
-                setTempGenre(g.value === tempGenre ? "all" : g.value)
-              }
-            />
-          ))}
-        </div>
-      </div>
+      <FilterGroup
+        title="Categories"
+        items={genres}
+        render={(g) => (
+          <CheckBoxWrapper
+            key={g.value}
+            id={g.value}
+            label={g.name}
+            checked={tempGenre === g.value}
+            onChange={() =>
+              setTempGenre(g.value === tempGenre ? "all" : g.value)
+            }
+          />
+        )}
+      />
 
-      <div>
-        <h2 className="mb-4 text-xs font-bold tracking-widest text-white uppercase opacity-50">
-          Platforms
-        </h2>
-        <div className="flex flex-col gap-2">
-          {platforms?.map((p) => (
-            <CheckBoxWrapper
-              key={p.value}
-              id={p.value}
-              label={p.name}
-              checked={tempPlatform === p.value.toLowerCase()}
-              onChange={() =>
-                setTempPlatform(
-                  p.value.toLowerCase() === tempPlatform
-                    ? "all"
-                    : p.value.toLowerCase(),
-                )
-              }
-            />
-          ))}
-        </div>
-      </div>
+      <FilterGroup
+        title="Platforms"
+        items={platforms}
+        render={(p) => (
+          <CheckBoxWrapper
+            key={p.value}
+            id={p.value}
+            label={p.name}
+            checked={tempPlatform === p.value.toLowerCase()}
+            onChange={() =>
+              setTempPlatform(
+                p.value.toLowerCase() === tempPlatform
+                  ? "all"
+                  : p.value.toLowerCase(),
+              )
+            }
+          />
+        )}
+      />
 
-      <div>
-        <h2 className="mb-4 text-xs font-bold tracking-widest text-white uppercase opacity-50">
-          Price Range
-        </h2>
-        <PriceRange
-          min={tempMin}
-          max={tempMax}
-          onMinChange={setTempMin}
-          onMaxChange={setTempMax}
-        />
-      </div>
+      <PriceRange
+        min={tempMin}
+        max={tempMax}
+        onMinChange={setTempMin}
+        onMaxChange={setTempMax}
+      />
 
       <Button
         variant="primary"
