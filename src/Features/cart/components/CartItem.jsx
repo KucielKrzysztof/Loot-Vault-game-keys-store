@@ -30,7 +30,7 @@ function CartItem({ item }) {
             >
               -
             </button>
-            <span className="text-primary min-w-[20px] text-center text-xs font-black">
+            <span className="text-primary min-w-5 text-center text-xs font-black">
               {item.quantity}
             </span>
             <button

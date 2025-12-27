@@ -51,7 +51,7 @@ function SearchDropdown({ results, isPending, error, onSelect }) {
 }
 
 const Container = ({ children }) => (
-  <div className="bg-surface animate-in fade-in slide-in-from-top-3 absolute top-full z-50 max-h-[550px] w-full overflow-hidden overflow-y-scroll rounded-b-3xl border-x border-b border-white/10 pb-3 shadow-2xl duration-500">
+  <div className="bg-surface animate-in fade-in slide-in-from-top-3 absolute top-full z-50 max-h-137.5 w-full overflow-hidden overflow-y-scroll rounded-b-3xl border-x border-b border-white/10 pb-3 shadow-2xl duration-500">
     {children}
   </div>
 );
