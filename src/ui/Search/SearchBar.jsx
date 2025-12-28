@@ -42,6 +42,7 @@ function SearchBar({ isOpen, setOpen, isLargeScreen }) {
           ref={inputRef}
           type="text"
           placeholder="search"
+          data-allow-global-keys="true"
           autoFocus={isOpen}
           value={query}
           onChange={(e) => setQuery(e.target.value)}

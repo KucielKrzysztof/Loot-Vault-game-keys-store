@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react";
 import { ShoppingCart, UserCircle, Menu, Search } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import SearchBar from "../Search/SearchBar";
 import Logo from "./Logo";
 import { useCart } from "../../Features/cart/hooks/useCart";
 import { cn } from "../../utils/cn";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
+import { useUser } from "../../Features/auth/hooks/useUser";
+import UserMenu from "./UserMenu";
 
 function NavBar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { totalQuantity, toggle } = useCart();
+  const { isAuthenticated } = useUser();
+
   const textOutline =
     "[text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]";
 
@@ -62,9 +66,13 @@ function NavBar() {
               </span>
             )}
           </button>
-          <button className="text-gray-300 transition-colors hover:text-white">
-            <UserCircle size={30} />
-          </button>
+          {isAuthenticated ? (
+            <UserMenu />
+          ) : (
+            <Link to="/login" className="text-sm font-black uppercase">
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </nav>
