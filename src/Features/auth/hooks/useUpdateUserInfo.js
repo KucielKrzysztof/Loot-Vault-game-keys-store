@@ -8,7 +8,7 @@ export const useUpdateUserInfo = () => {
   const { mutate: updateUser, isPending: isUpdating } = useMutation({
     mutationFn: updateUserInfo,
     onSuccess: () => {
-      notifyGeneric("Success!", "Profile updated successfully");
+      notifyGeneric("Profile updated successfully", "X");
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (error) => notifyError("Update failed", error.message),

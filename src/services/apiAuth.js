@@ -53,15 +53,34 @@ export async function logout() {
 }
 
 export async function updateUserInfo({ fullName, password, email, avatar }) {
+  let avatarUrl = avatar;
+
+  if (avatar instanceof File) {
+    const { data: userData } = await supabase.auth.getUser();
+    const fileName = `avatar-${userData.user.id}-${Date.now()}`;
+
+    const { error: storageError } = await supabase.storage
+      .from("avatars")
+      .upload(fileName, avatar);
+
+    if (storageError) throw new Error("Error uploading avatar");
+
+    const { data: urlData } = supabase.storage
+      .from("avatars")
+      .getPublicUrl(fileName);
+
+    avatarUrl = urlData.publicUrl;
+  }
+
   let updateData = {};
 
   if (password) updateData.password = password;
   if (email) updateData.email = email;
 
-  if (fullName || avatar) {
+  if (fullName || avatarUrl) {
     updateData.data = {};
     if (fullName) updateData.data.fullName = fullName;
-    if (avatar) updateData.data.avatar = avatar;
+    if (avatarUrl) updateData.data.avatar = avatarUrl;
   }
 
   const { data, error } = await supabase.auth.updateUser(updateData);

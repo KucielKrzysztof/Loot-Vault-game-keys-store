@@ -1,7 +1,7 @@
 import { Search, X } from "lucide-react";
-import SearchDropdown from "../Search/SearchDropdown";
-import { useClickOutside } from "../../hooks/useClickOutside";
-import { useKeyDown } from "../../hooks/useKeyDown";
+import SearchDropdown from "./SearchDropdown";
+import { useClickOutside } from "../../../hooks/useClickOutside";
+import { useKeyDown } from "../../../hooks/useKeyDown";
 import { useSearchBarLogic } from "./hooks/useSearchBarLogic";
 
 function SearchBar({ isOpen, setOpen, isLargeScreen }) {

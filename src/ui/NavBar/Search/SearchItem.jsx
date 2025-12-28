@@ -1,4 +1,4 @@
-import { formatCurrency } from "../../utils/formatters";
+import { formatCurrency } from "../../../utils/formatters";
 
 function SearchItem({ title, slug, price, originalPrice, image, onSelect }) {
   return (

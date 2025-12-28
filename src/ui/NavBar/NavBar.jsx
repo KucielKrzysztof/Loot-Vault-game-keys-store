@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { ShoppingCart, UserCircle, Menu, Search } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
-import SearchBar from "../Search/SearchBar";
+import SearchBar from "./Search/SearchBar";
 import Logo from "./Logo";
 import { useCart } from "../../Features/cart/hooks/useCart";
 import { cn } from "../../utils/cn";
 import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useUser } from "../../Features/auth/hooks/useUser";
-import UserMenu from "./UserMenu";
+import UserMenu from "./UserMenu/UserMenu";
 
 function NavBar() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
@@ -69,8 +69,11 @@ function NavBar() {
           {isAuthenticated ? (
             <UserMenu />
           ) : (
-            <Link to="/login" className="text-sm font-black uppercase">
-              Login
+            <Link
+              to="/login"
+              className="text-gray-300 transition-all hover:text-white"
+            >
+              <UserCircle size={30} />
             </Link>
           )}
         </div>
