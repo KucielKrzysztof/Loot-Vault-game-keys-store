@@ -7,6 +7,8 @@ import ProtectedRoute from "./Features/auth/components/ProtectedRoute";
 import SignupForm from "./Features/auth/components/SignupForm";
 import PublicRoute from "./Features/auth/components/PublicRoute";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
+import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
+import OrderSuccessPage from "./pages/OrdersPage/OrderSuccessPage";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ProductPage = lazy(() => import("./pages/ProductPage/ProductPage"));
@@ -22,6 +24,10 @@ export const routes = [
       { path: "home", element: <HomePage /> },
       { path: "products", element: <ProductsListPage /> },
       { path: "product/:slug", element: <ProductPage /> },
+      { path: "checkout", element: <CheckoutPage /> },
+      { path: "order-success/:orderId", element: <OrderSuccessPage /> },
+
+      /* PROTECTED PAGES */
       {
         path: "login",
         element: (
@@ -48,6 +54,7 @@ export const routes = [
         ),
       },
 
+      /* PAGE NOT FOUND */
       { path: "*", element: <PageNotFound /> },
     ],
   },

@@ -3,9 +3,11 @@ import { formatCurrency } from "../../../utils/formatters";
 import { notifyGeneric } from "../../../utils/notifications";
 import Button from "../../../ui/Button";
 import { useCart } from "../hooks/useCart";
+import { useNavigate } from "react-router-dom";
 
 function CartDrawerFooter() {
-  const { totalQuantity, totalPrice, clear } = useCart();
+  const navigate = useNavigate();
+  const { totalQuantity, totalPrice, clear, close } = useCart();
 
   return (
     <>
@@ -24,6 +26,10 @@ function CartDrawerFooter() {
             <Button
               variant="primary"
               className="group w-full py-4 text-sm font-black uppercase"
+              onClick={() => {
+                close();
+                navigate("/checkout");
+              }}
             >
               <span>Checkout Now</span>
               <ArrowRight

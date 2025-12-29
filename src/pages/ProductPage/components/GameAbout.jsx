@@ -31,7 +31,7 @@ function GameAbout({ product, setShowDescription, showDescription }) {
           <h2 className="mb-6 flex items-center justify-center gap-2 text-xl font-bold tracking-tighter uppercase">
             <Info size={20} className="text-primary" /> Genres
           </h2>
-          <div className="flex items-center justify-center gap-3">
+          <div className="flex flex-wrap items-center justify-center gap-3">
             {genre.map((g) => (
               <div
                 key={g}
