@@ -1,4 +1,3 @@
-import { Zap } from "lucide-react";
 import { Link } from "react-router-dom";
 
 function Logo() {

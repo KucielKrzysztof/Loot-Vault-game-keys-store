@@ -1,4 +1,4 @@
-import CheckBox from "./Checkbox";
+import CheckBox from "./CheckBox";
 
 function CheckBoxWrapper({ id, label, checked, onChange }) {
   return (

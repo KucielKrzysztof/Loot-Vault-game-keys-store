@@ -8,7 +8,8 @@ import SignupForm from "./Features/auth/components/SignupForm";
 import PublicRoute from "./Features/auth/components/PublicRoute";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
-import OrderSuccessPage from "./pages/OrdersPage/OrderSuccessPage";
+import OrderSuccessPage from "./pages/OrderSuccessPage/OrderSuccessPage";
+import OrdersPage from "./pages/OrdersPage/OrdersPage";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ProductPage = lazy(() => import("./pages/ProductPage/ProductPage"));
@@ -50,6 +51,14 @@ export const routes = [
         element: (
           <ProtectedRoute>
             <ProfilePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "orders",
+        element: (
+          <ProtectedRoute>
+            <OrdersPage />
           </ProtectedRoute>
         ),
       },
