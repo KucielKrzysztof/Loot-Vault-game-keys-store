@@ -70,6 +70,7 @@ function Footer() {
                 <img
                   src={appleLogo}
                   alt="Apple"
+                  loading="lazy"
                   className="h-full w-full object-contain"
                 />
               }
@@ -81,6 +82,7 @@ function Footer() {
                 <img
                   src={googleStoreLogo}
                   alt="Google Play"
+                  loading="lazy"
                   className="h-full w-full object-contain"
                 />
               }

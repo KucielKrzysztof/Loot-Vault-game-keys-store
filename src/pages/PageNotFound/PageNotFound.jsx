@@ -11,6 +11,7 @@ function PageNotFound() {
         <img
           src={chestImg}
           alt="Empty chest"
+          loading="lazy"
           className="h-full w-full object-contain"
         />
       </div>

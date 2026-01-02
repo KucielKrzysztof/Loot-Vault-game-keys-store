@@ -12,6 +12,7 @@ function CartItem({ item }) {
         <img
           src={item.image}
           alt={item.title}
+          loading="lazy"
           className="h-full w-full object-cover"
         />
       </div>

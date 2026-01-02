@@ -9,6 +9,8 @@ function SearchItem({ title, slug, price, originalPrice, image, onSelect }) {
       <div className="w-30 shrink-0 overflow-hidden rounded-lg border border-white/10">
         <img
           src={image}
+          alt={title}
+          loading="lazy"
           className="transition-scale h-full w-full object-cover duration-400 group-hover:scale-110"
         />
       </div>

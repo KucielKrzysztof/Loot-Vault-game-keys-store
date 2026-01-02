@@ -71,6 +71,7 @@ function GamesItem({ game }) {
         <img
           src={image}
           alt={title}
+          loading="lazy"
           className={`h-full w-full overflow-hidden rounded-2xl object-cover transition-all duration-200 hover:scale-110 hover:cursor-pointer ${!inStock && "grayscale"}`}
           onClick={() => {
             navigate(`/product/${slug}`);

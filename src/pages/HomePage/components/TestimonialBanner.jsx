@@ -19,6 +19,7 @@ function TestimonialBanner() {
                 src="https://i.pravatar.cc/150?u=pro-gamer-7"
                 className="border-secondary shadow-secondary/20 h-32 w-32 rounded-full border-4 object-cover shadow-2xl md:h-48 md:w-48"
                 alt="Famous Pro Player"
+                loading="lazy"
               />
             </div>
             <div className="mt-6 flex flex-col items-center text-center">

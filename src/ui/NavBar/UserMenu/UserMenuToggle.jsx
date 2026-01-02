@@ -15,6 +15,7 @@ function UserMenuToggle({ fullName, avatarUrl, isOpen, onToggle }) {
           <img
             src={avatarUrl}
             alt={fullName}
+            loading="lazy"
             className="h-full w-full object-cover"
           />
         )}

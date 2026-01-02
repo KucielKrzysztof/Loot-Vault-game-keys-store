@@ -14,6 +14,7 @@ function BannerImage({ src, alt, className }) {
     <img
       src={src}
       alt={alt}
+      loading="lazy"
       className={cn("absolute inset-0 h-full w-full object-cover", className)}
     />
   );

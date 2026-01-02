@@ -9,6 +9,7 @@ function BannerGameFeatured({ image, onClick }) {
       <img
         src={image}
         alt="Featured promotion"
+        loading="lazy"
         className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
 

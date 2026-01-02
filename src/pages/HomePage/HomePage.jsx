@@ -10,9 +10,6 @@ import Button from "../../ui/Button";
 import { useProducts } from "../../Features/products/hooks/useProducts";
 
 function HomePage() {
-  const placeholderURL =
-    "https://gaming-cdn.com/images/products/16007/orig/elden-ring-shadow-of-the-erdtree-edition-shadow-of-the-erdtree-edition-pc-game-steam-europe-cover.jpg?v=1718975409";
-
   const { isPending, products, error } = useProducts();
 
   if (error) return <p className="text-white">Error Loading data!</p>;
@@ -27,7 +24,7 @@ function HomePage() {
       {/* FEATURED BANNER BANNER */}
       <PageSection>
         <BannerGameFeatured
-          image={placeholderURL}
+          image="/featured.jpg"
           onClick={console.log("todo")}
         />
       </PageSection>
@@ -47,7 +44,7 @@ function HomePage() {
 
       {/* HERO SECTION  */}
       <FullBanner>
-        <FullBanner.Image src={placeholderURL} alt="Promo" />
+        <FullBanner.Image src="/featured.jpg" alt="Promo" />
         <FullBanner.Overlay className="bg-linear-to-r from-black/90 to-transparent" />
         <FullBanner.Content>
           <h1 className="text-6xl font-black">Limited Time Offer</h1>

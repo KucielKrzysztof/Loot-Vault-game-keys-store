@@ -8,6 +8,8 @@ function Logo() {
     >
       <img
         src="/transaprent1.png"
+        alt="logo"
+        loading="lazy"
         className="h-full w-full object-contain object-left"
       />
     </Link>
