@@ -12,6 +12,13 @@ export async function getProducts({ filter, sortBy, page, pageSize = 12 }) {
     query = query.contains("platforms", JSON.stringify([filter.platform]));
   }
 
+  if (filter.isTrending !== null)
+    query = query.eq("is_trending", filter.isTrending);
+  if (filter.isRecommended !== null)
+    query = query.eq("is_recommended", filter.isRecommended);
+  if (filter.isBestseller !== null)
+    query = query.eq("is_bestseller", filter.isBestseller);
+
   if (filter.minPrice) query = query.gte("price", filter.minPrice);
   if (filter.maxPrice) query = query.lte("price", filter.maxPrice);
 
@@ -26,12 +33,6 @@ export async function getProducts({ filter, sortBy, page, pageSize = 12 }) {
     const to = from + pageSize - 1;
     query = query.range(from, to);
   }
-
-  console.log("Filtry wysyłane do bazy:", {
-    genre: filter.genre,
-    platforms: filter.platform,
-    prices: `${filter.minPrice} - ${filter.maxPrice}`,
-  });
 
   const { data, error, count } = await query;
 
@@ -90,8 +91,6 @@ export async function getFilterOptions() {
   const { data: platforms, error: platError } = await supabase
     .from("unique_platforms")
     .select("name");
-
-  console.log("Pobrane opcje:", { genres, platforms });
 
   if (genreError || platError) throw new Error("Could not load filter options");
 

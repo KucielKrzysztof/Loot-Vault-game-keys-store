@@ -8,6 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { PersistGate } from "redux-persist/integration/react";
 
 const router = createBrowserRouter(routes);
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -15,6 +16,7 @@ const queryClient = new QueryClient({
     },
   },
 });
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>

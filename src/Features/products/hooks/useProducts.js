@@ -8,7 +8,7 @@ import { getProducts } from "../../../services/apiProducts";
 
 const PAGE_SIZE = 12;
 
-export const useProducts = () => {
+export const useProducts = (options = {}) => {
   const queryClient = useQueryClient();
   const [searchParams] = useSearchParams();
 
@@ -19,29 +19,25 @@ export const useProducts = () => {
   const sortByRaw = searchParams.get("sortBy") || "price-asc";
   const page = Number(searchParams.get("page")) || 1;
 
+  const isTrending = options.isTrending ?? null;
+  const isRecommended = options.isRecommended ?? null;
+  const isBestseller = options.isBestseller ?? null;
+
   const [field, direction] = sortByRaw.split("-");
 
-  const filter = { genre, platform, minPrice, maxPrice };
+  const filter = {
+    genre,
+    platform,
+    minPrice,
+    maxPrice,
+    isTrending,
+    isRecommended,
+    isBestseller,
+  };
   const sortBy = { field, direction };
 
-  const queryKey = [
-    "products",
-    genre,
-    platform,
-    minPrice,
-    maxPrice,
-    sortByRaw,
-    page,
-  ];
-  const nextStepKey = [
-    "products",
-    genre,
-    platform,
-    minPrice,
-    maxPrice,
-    sortByRaw,
-    page + 1,
-  ];
+  const queryKey = ["products", filter, sortByRaw, page];
+  const nextStepKey = ["products", filter, sortByRaw, page + 1];
 
   const { isPending, data, error, isPlaceholderData } = useQuery({
     queryKey: queryKey,

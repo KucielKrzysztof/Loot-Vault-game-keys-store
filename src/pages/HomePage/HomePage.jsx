@@ -7,12 +7,17 @@ import MobileAppBanner from "./components/MobileAppBanner";
 import FAQ from "./components/FAQ";
 import CategoryGrid from "../../ui/CategoryCard/CategoryGrid";
 import Button from "../../ui/Button";
-import { useProducts } from "../../Features/products/hooks/useProducts";
+import { useHomePageProducts } from "./hooks/useHomePageProducts";
 
 function HomePage() {
-  const { isPending, products, error } = useProducts();
-
-  if (error) return <p className="text-white">Error Loading data!</p>;
+  const {
+    trending,
+    loadingTrending,
+    recommended,
+    loadingRecommended,
+    bestsellers,
+    loadingBestsellers,
+  } = useHomePageProducts();
 
   return (
     <div className="flex flex-col items-center">
@@ -31,8 +36,8 @@ function HomePage() {
 
       {/* Trending games grid */}
       <PageSection>
-        <GamesGrid games={products} isLoading={isPending}>
-          <GamesGrid.Header to="#">Trending</GamesGrid.Header>
+        <GamesGrid games={trending} isLoading={loadingTrending}>
+          <GamesGrid.Header to="/products">Trending</GamesGrid.Header>
           <GamesGrid.List />
         </GamesGrid>
       </PageSection>
@@ -55,8 +60,8 @@ function HomePage() {
 
       {/* RECOMMENDED games grid  */}
       <PageSection>
-        <GamesGrid games={products?.slice(0, 3)} isLoading={isPending}>
-          <GamesGrid.Header to="#">Recommended</GamesGrid.Header>
+        <GamesGrid games={recommended} isLoading={loadingRecommended}>
+          <GamesGrid.Header to="/products">Recommended</GamesGrid.Header>
           <GamesGrid.List />
         </GamesGrid>
       </PageSection>
@@ -66,8 +71,8 @@ function HomePage() {
 
       {/* BESTSELLERS games grid  */}
       <PageSection>
-        <GamesGrid games={products?.slice(0, 9)} isLoading={isPending}>
-          <GamesGrid.Header to="#">Bestsellers</GamesGrid.Header>
+        <GamesGrid games={bestsellers} isLoading={loadingBestsellers}>
+          <GamesGrid.Header to="/products">Bestsellers</GamesGrid.Header>
           <GamesGrid.List />
         </GamesGrid>
       </PageSection>
