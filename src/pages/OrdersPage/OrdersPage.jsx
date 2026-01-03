@@ -1,12 +1,13 @@
 import { useOrders } from "../../Features/orders/hooks/useOrders";
 import FullPageLoader from "../../ui/FullPageLoader";
 import OrderCard from "./components/OrderCard";
+import OrderCardSkeleton from "./components/OrderCardSkeleton";
 import OrdersEmpty from "./components/OrdersEmpty";
 
 function OrdersPage() {
   const { orders, isPending } = useOrders();
 
-  if (isPending) return <FullPageLoader />;
+  if (isPending) return <OrderCardSkeleton />;
 
   if (!orders?.length) {
     return <OrdersEmpty />;

@@ -7,7 +7,7 @@ import GameAbout from "./components/GameAbout";
 import GameRequirements from "./components/GameRequirements";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { useProduct } from "../../Features/products/hooks/useProduct";
-import FullPageLoader from "../../ui/FullPageLoader";
+import ProductPageSkeleton from "./components/ProductPageSkeleton";
 
 function ProductPage() {
   const { slug } = useParams();
@@ -15,7 +15,7 @@ function ProductPage() {
   const [showDescription, setShowDescription] = useState(false);
 
   if (error) return <PageNotFound />;
-  if (isPending) return <FullPageLoader />;
+  if (isPending) return <ProductPageSkeleton />;
 
   const { title, image } = product;
 
