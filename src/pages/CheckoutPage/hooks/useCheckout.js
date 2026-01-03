@@ -9,10 +9,15 @@ export const useCheckout = () => {
   const { createOrder, isCreating } = useCreateOrder();
 
   function handleCheckout(formData) {
-    const itemsWithKeys = cart.map((item) => ({
-      ...item,
-      licenseKey: generateGameKey(),
-    }));
+    const itemsWithKeys = cart.map((item) => {
+      const keys = Array.from({ length: item.quantity }, () =>
+        generateGameKey(),
+      );
+      return {
+        ...item,
+        licenseKeys: keys,
+      };
+    });
 
     const orderData = {
       user_id: user?.id || null,

@@ -8,6 +8,8 @@ export const useGameCard = (product) => {
 
   const { addItem, open, isCheckingStock } = useCart();
 
+  const { id, title, price, image } = product;
+
   const [selectedPlatform, setSelectedPlatform] = useState(
     product.platforms[0],
   );
@@ -17,11 +19,11 @@ export const useGameCard = (product) => {
   async function handleAddToCart() {
     if (!product) return;
     if (!isPurchasable) return;
-    const newItem = { ...product, selectedPlatform };
+    const newItem = { id, title, price, image, selectedPlatform };
 
     try {
       await addItem(newItem);
-      notifyAddedToCart(product.title, selectedPlatform, open);
+      notifyAddedToCart(title, selectedPlatform, open);
     } catch (error) {
       notifyError("Could not add item to cart", error);
       queryClient.invalidateQueries({ queryKey: ["products"] });

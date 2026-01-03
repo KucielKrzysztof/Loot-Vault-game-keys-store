@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ShoppingCart, UserCircle, Menu, Search } from "lucide-react";
+import { ShoppingCart, UserCircle, Search, Gamepad2 } from "lucide-react";
 import { Link, NavLink } from "react-router-dom";
 import SearchBar from "./Search/SearchBar";
 import Logo from "./Logo";
@@ -31,7 +31,10 @@ function NavBar() {
         >
           <Logo />
           <NavLink to="products">
-            <Menu className="text-gray-300 transition-all duration-300 hover:text-white md:hover:scale-110" />
+            <Gamepad2
+              className="text-gray-300 transition-all duration-300 hover:text-white md:hover:scale-110"
+              size={30}
+            />
           </NavLink>
         </div>
 
