@@ -3,9 +3,16 @@ import { useOrder } from "../../Features/orders/hooks/useOrder";
 import OrderSuccessHeader from "./components/OrderSuccessHeader";
 import OrderKeyItem from "../../Features/orders/components/OrderKeyItem";
 import OrderSuccessFooter from "./components/OrderSuccessFooter";
+import { useCart } from "../../Features/cart/hooks/useCart";
+import { useEffect } from "react";
 
 function OrderSuccessPage() {
   const { order, isPending, orderId } = useOrder();
+  const { clear } = useCart();
+
+  useEffect(() => {
+    clear();
+  }, [clear]);
 
   if (isPending) return <FullPageLoader />;
 

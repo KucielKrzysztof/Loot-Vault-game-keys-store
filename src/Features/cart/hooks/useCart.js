@@ -16,7 +16,7 @@ import {
 } from "../cartSlice";
 import { useCallback } from "react";
 
-export const useCart = () => {
+export const  useCart = () => {
   const dispatch = useDispatch();
 
   const status = useSelector(selectCartStatus);

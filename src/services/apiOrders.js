@@ -1,6 +1,6 @@
 import { supabase } from "./supabase";
 
-export async function createOrder(newOrder) {
+/* export async function createOrder(newOrder) {
   const { data, error } = await supabase
     .from("orders")
     .insert([newOrder])
@@ -14,7 +14,7 @@ export async function createOrder(newOrder) {
 
   return data;
 }
-
+ */
 export async function getOrders(user_id) {
   const { data, error } = await supabase
     .from("orders")
@@ -30,10 +30,13 @@ export async function getOrders(user_id) {
 }
 
 export async function getOrderById(order_id) {
+  const isStripeId = order_id.startsWith("cs_");
+  const column = isStripeId ? "stripe_session_id" : "id";
+
   const { data, error } = await supabase
     .from("orders")
     .select("*")
-    .eq("id", order_id)
+    .eq(column, order_id)
     .single();
   if (error) throw error;
   return data;

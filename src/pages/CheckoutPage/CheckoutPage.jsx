@@ -44,10 +44,10 @@ function CheckoutPage() {
           variant="primary"
           type="submit"
           form="checkout-form"
-          disabled={isCreating}
+          /*  disabled={isCreating} */
           className="py-6 text-lg font-black tracking-widest uppercase"
         >
-          {isCreating ? "Processing Order..." : "Finalize Transaction"}
+          {/* isCreating ? "Processing Order..." : */ "Finalize Transaction"}
         </Button>
       </div>
     </div>
