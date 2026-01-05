@@ -1,20 +1,22 @@
 import { supabase } from "./supabase";
 
-/* export async function createOrder(newOrder) {
-  const { data, error } = await supabase
-    .from("orders")
-    .insert([newOrder])
-    .select()
-    .single();
+export async function createCheckoutSession(checkoutData) {
+  const { data, error } = await supabase.functions.invoke(
+    "swift-processor",
+    {
+      body: checkoutData,
+    }
+  );
 
   if (error) {
-    console.error(error);
-    throw new Error("Could not create the order");
+    console.error("Stripe Session Error:", error);
+    throw new Error(error.message || "Failed to initialize payment");
   }
 
-  return data;
+  return data; 
 }
- */
+
+
 export async function getOrders(user_id) {
   const { data, error } = await supabase
     .from("orders")

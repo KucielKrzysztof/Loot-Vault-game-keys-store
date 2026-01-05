@@ -5,8 +5,15 @@ import OrderOverview from "./components/OrderOverview";
 import { useCheckout } from "./hooks/useCheckout";
 
 function CheckoutPage() {
-  const { cart, totalPrice, totalQuantity, user, isCreating, handleCheckout } =
-    useCheckout();
+  const {
+    cart,
+    totalPrice,
+    totalQuantity,
+    user,
+    isCreating,
+    handleCheckout,
+    isProcessing,
+  } = useCheckout();
 
   if (totalQuantity === 0)
     return (
@@ -44,10 +51,10 @@ function CheckoutPage() {
           variant="primary"
           type="submit"
           form="checkout-form"
-          /*  disabled={isCreating} */
-          className="py-6 text-lg font-black tracking-widest uppercase"
+          disabled={isProcessing}
+          className="py-6 text-lg font-black tracking-widest uppercase disabled:bg-gray-500"
         >
-          {/* isCreating ? "Processing Order..." : */ "Finalize Transaction"}
+          {isProcessing ? "Processing... " : "Finalize Transaction"}
         </Button>
       </div>
     </div>

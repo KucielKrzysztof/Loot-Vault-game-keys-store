@@ -1,56 +1,34 @@
 import { useUser } from "../../../Features/auth/hooks/useUser";
 import { useCart } from "../../../Features/cart/hooks/useCart";
-/* import { useCreateOrder } from "../../../Features/orders/hooks/useCreateOrder"; */
-import { supabase } from "../../../services/supabase";
-/* import { generateGameKey } from "../../../utils/gameKeyGenerator"; */
 import { notifyError } from "../../../utils/notifications";
+import { createCheckoutSession } from "../../../services/apiOrders";
+import { useState } from "react";
 
 export const useCheckout = () => {
+  const [isProcessing, setIsProcessing] = useState(false);
   const { cart, totalPrice, totalQuantity } = useCart();
   const { user } = useUser();
-  /*   const { createOrder, isCreating } = useCreateOrder(); */
 
   async function handleCheckout(formData) {
     try {
-      const { data, error } = await supabase.functions.invoke(
-        "swift-processor",
-        {
-          body: {
-            items: cart,
-            user_id: user?.id || null,
-            shippingDetails: formData,
-          },
-        },
-      );
+      setIsProcessing(true);
+      const checkoutData = {
+        items: cart,
+        user_id: user?.id || null,
+        shippingDetails: formData,
+      };
 
-      if (error) throw error;
+      const data = await createCheckoutSession(checkoutData);
 
-      // 2. Przekierowujemy użytkownika do Stripe
+      /* payment url from stripe */
       if (data?.url) {
         window.location.href = data.url;
       }
     } catch (err) {
       notifyError("Payment initialization failed", err.message);
+    } finally {
+      setIsProcessing(false);
     }
-
-    /*  const itemsWithKeys = cart.map((item) => {
-      const keys = Array.from({ length: item.quantity }, () =>
-        generateGameKey(),
-      );
-      return {
-        ...item,
-        licenseKeys: keys,
-      };
-    });
-
-    const orderData = {
-      user_id: user?.id || null,
-      items: itemsWithKeys,
-      total_price: totalPrice,
-      status: "completed",
-      shipping_details: formData,
-    };
-    createOrder(orderData); */
   }
 
   return {
@@ -58,6 +36,7 @@ export const useCheckout = () => {
     totalPrice,
     totalQuantity,
     user,
-    /* isCreating, */ handleCheckout,
+    handleCheckout,
+    isProcessing,
   };
 };
