@@ -8,6 +8,7 @@ import GameRequirements from "./components/GameRequirements";
 import PageNotFound from "../PageNotFound/PageNotFound";
 import { useProduct } from "../../Features/products/hooks/useProduct";
 import ProductPageSkeleton from "./components/ProductPageSkeleton";
+import SEO from "../../ui/SEO";
 
 function ProductPage() {
   const { slug } = useParams();
@@ -17,10 +18,17 @@ function ProductPage() {
   if (error) return <PageNotFound />;
   if (isPending) return <ProductPageSkeleton />;
 
-  const { title, image } = product;
+  const { title, price, image, platforms } = product;
 
   return (
     <div className="bg-background relative h-full w-full">
+      <SEO
+        title={`${title} - Only $${price}`}
+        description={`Get your ${title} digital key on ${platforms?.join(", ")}. Instant delivery via Vault Store.`}
+        image={image}
+        type="product"
+      />
+
       {/* BG BANNER */}
       <div className="absolute inset-0 z-0 h-125 w-full lg:h-150">
         <FullBanner>

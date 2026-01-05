@@ -6,6 +6,7 @@ import OrderSuccessFooter from "./components/OrderSuccessFooter";
 import { useCart } from "../../Features/cart/hooks/useCart";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import SEO from "../../ui/SEO";
 
 function OrderSuccessPage() {
   const { order, isPending, orderId, error } = useOrder();
@@ -31,6 +32,11 @@ function OrderSuccessPage() {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-10 text-center sm:px-6 sm:py-20">
+      <SEO
+        title="Payment Successful! Thank you"
+        description="Your digital keys are ready."
+      />
+
       <OrderSuccessHeader orderId={orderId} />
 
       <div className="bg-surface rounded-3xl border border-white/10 p-5 shadow-2xl sm:p-8">

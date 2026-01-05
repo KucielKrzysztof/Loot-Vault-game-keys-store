@@ -8,6 +8,7 @@ import FAQ from "./components/FAQ";
 import CategoryGrid from "../../ui/CategoryCard/CategoryGrid";
 import Button from "../../ui/Button";
 import { useHomePageProducts } from "./hooks/useHomePageProducts";
+import SEO from "../../ui/SEO";
 
 function HomePage() {
   const {
@@ -21,6 +22,11 @@ function HomePage() {
 
   return (
     <div className="flex flex-col items-center">
+      <SEO
+        title="Best Digital Game Keys"
+        description="Buy your favorite game keys instantly and securely. Minecraft, Baldur's Gate 3 and more!"
+      />
+
       {/* HOME BANNER */}
       <FullBanner>
         <FullBanner.Image src="/banner.png" alt="Home" />
