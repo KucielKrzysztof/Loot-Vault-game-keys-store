@@ -37,7 +37,7 @@ export async function getOrderById(order_id) {
     .from("orders")
     .select("*")
     .eq(column, order_id)
-    .single();
-  if (error) throw error;
+    .maybeSingle();
+  if (error) throw new Error(`Order not found ${error.message}`);
   return data;
 }

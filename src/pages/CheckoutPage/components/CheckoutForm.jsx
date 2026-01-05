@@ -1,6 +1,18 @@
 import { useForm } from "react-hook-form";
 import FormInput from "../../../ui/FormInput";
 
+function PaymentBadge({ src, alt, isPng = false }) {
+  return (
+    <div className="bg-surface flex h-10 w-16 items-center justify-center rounded-xl border border-white/5 p-2">
+      <img
+        src={src}
+        alt={alt}
+        className={`max-h-full max-w-full object-contain ${isPng ? "brightness-125" : ""}`}
+      />
+    </div>
+  );
+}
+
 function CheckoutForm({ user, onSubmit, isCreating }) {
   const {
     register,
@@ -96,12 +108,28 @@ function CheckoutForm({ user, onSubmit, isCreating }) {
             <div className="flex items-center gap-4">
               <div className="bg-primary h-3 w-3 rounded-full" />
               <span className="font-bold text-white">
-                Simulated Checkout (Vault)
+                Secure Checkout via Stripe
               </span>
             </div>
-            <span className="text-[10px] font-bold tracking-widest text-white/40 uppercase">
-              Instant Delivery
-            </span>
+            <div className="flex flex-wrap gap-2">
+              <PaymentBadge
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Blik_logo.jpg/250px-Blik_logo.jpg"
+                alt="BLIK"
+              />
+              <PaymentBadge
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e3/Przelewy24_logo.png/250px-Przelewy24_logo.png"
+                alt="P24"
+                isPng
+              />
+              <PaymentBadge
+                src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
+                alt="Visa"
+              />
+              <PaymentBadge
+                src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                alt="Mastercard"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import CheckoutPage from "./pages/CheckoutPage/CheckoutPage";
 import OrderSuccessPage from "./pages/OrderSuccessPage/OrderSuccessPage";
 import OrdersPage from "./pages/OrdersPage/OrdersPage";
+import OrderErrorPage from "./pages/OrderErrorPage/OrderErrorPage";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ProductPage = lazy(() => import("./pages/ProductPage/ProductPage"));
@@ -27,6 +28,8 @@ export const routes = [
       { path: "product/:slug", element: <ProductPage /> },
       { path: "checkout", element: <CheckoutPage /> },
       { path: "order-success/:orderId", element: <OrderSuccessPage /> },
+
+      { path: "payment-error", element: <OrderErrorPage /> },
 
       /* PROTECTED PAGES */
       {

@@ -5,14 +5,27 @@ import OrderKeyItem from "../../Features/orders/components/OrderKeyItem";
 import OrderSuccessFooter from "./components/OrderSuccessFooter";
 import { useCart } from "../../Features/cart/hooks/useCart";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function OrderSuccessPage() {
-  const { order, isPending, orderId } = useOrder();
+  const { order, isPending, orderId, error } = useOrder();
   const { clear } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    clear();
-  }, [clear]);
+    if (order) clear();
+
+    if (!isPending && error) {
+      navigate("/payment-error", {
+        state: {
+          message:
+            "We couldn't find your order details yet. This sometimes happens if the payment provider is slow.",
+          orderId: orderId,
+          technicalError: error.message,
+        },
+      });
+    }
+  }, [order, clear, isPending, error, navigate, orderId]);
 
   if (isPending) return <FullPageLoader />;
 

@@ -11,7 +11,7 @@ function AuthForm({
   return (
     <form
       onSubmit={onSubmit}
-      className="bg-surface mx-auto flex max-w-md flex-col gap-4 rounded-3xl border border-white/10 p-8 shadow-2xl"
+      className="bg-surface mx-auto mt-10 flex max-w-md flex-col gap-4 rounded-3xl border border-white/10 p-8 shadow-2xl"
     >
       <h2 className="mb-4 text-center text-2xl font-black uppercase">
         {title}
