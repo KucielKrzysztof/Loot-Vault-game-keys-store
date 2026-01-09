@@ -22,7 +22,7 @@ function App() {
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
+        {/*  <ReactQueryDevtools /> */}
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <StyledToaster />
