@@ -9,7 +9,7 @@ function OrderSuccessHeader({ orderId }) {
       <h1 className="text-2xl font-black tracking-tighter text-white uppercase italic sm:text-4xl">
         Payment <span className="text-primary">Confirmed</span>
       </h1>
-      <p className="mt-2 text-[10px] font-bold tracking-widest text-white/50 uppercase sm:text-xs">
+      <p className="mt-2 text-[10px] font-bold tracking-widest break-all text-white/50 uppercase sm:text-xs">
         Order ID: {orderId}
       </p>
     </div>
