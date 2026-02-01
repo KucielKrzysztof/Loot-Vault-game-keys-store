@@ -15,7 +15,8 @@ function UserMenu() {
 
   const fullName =
     user?.user_metadata?.fullName || user?.user_metadata?.full_name || "User";
-  const avatarUrl = user?.user_metadata?.avatar || "";
+  const avatarUrl =
+    user?.user_metadata?.avatar || user?.user_metadata?.picture || "";
   const email = user?.email || "";
 
   return (
