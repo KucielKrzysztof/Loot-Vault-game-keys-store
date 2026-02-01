@@ -27,6 +27,22 @@ export async function login({ email, password }) {
   return data;
 }
 
+export async function loginWithGoogle() {
+  const { data, error } = await supabase.auth.signInWithOAuth({
+    provider: "google",
+    options: {
+      redirectTo: window.location.origin + "/home",
+    },
+  });
+
+  if (error) {
+    console.error(error.message);
+    throw new Error("Could not authenticate with Google");
+  }
+
+  return data;
+}
+
 export async function signup({ email, password, fullName }) {
   const { data, error } = await supabase.auth.signUp({
     email,

@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 
-function UserMenuToggle({ fullName, avatarUrl, isOpen, onToggle }) {
+function UserMenuToggle({ fullName = "User", avatarUrl, isOpen, onToggle }) {
   return (
     <button
       onClick={onToggle}

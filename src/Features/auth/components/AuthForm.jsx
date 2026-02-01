@@ -1,4 +1,5 @@
 import Button from "../../../ui/Button";
+import LoginWithGoogle from "./LoginWithGoogle";
 
 function AuthForm({
   onSubmit,
@@ -26,6 +27,10 @@ function AuthForm({
       >
         {isLoading ? "Processing..." : buttonLabel}
       </Button>
+
+      {/* GOOGLE OAUTH */}
+      <LoginWithGoogle />
+
       {footer && <div className="mt-2 text-center text-sm">{footer}</div>}
     </form>
   );

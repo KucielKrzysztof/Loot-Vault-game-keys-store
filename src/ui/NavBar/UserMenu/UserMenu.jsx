@@ -13,14 +13,15 @@ function UserMenu() {
 
   useClickOutside(menuRef, () => setIsOpen(false));
 
-  const fullName = user?.user_metadata?.fullName || "User";
+  const fullName =
+    user?.user_metadata?.fullName || user?.user_metadata?.full_name || "User";
   const avatarUrl = user?.user_metadata?.avatar || "";
   const email = user?.email || "";
 
   return (
     <div className="relative" ref={menuRef}>
       <UserMenuToggle
-        fullNam={fullName}
+        fullName={fullName}
         avatarUrl={avatarUrl}
         isOpen={isOpen}
         onToggle={() => setIsOpen((s) => !s)}
