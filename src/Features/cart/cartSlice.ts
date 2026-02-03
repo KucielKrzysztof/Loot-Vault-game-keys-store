@@ -2,10 +2,37 @@ import {
   createAsyncThunk,
   createSelector,
   createSlice,
+  type PayloadAction,
 } from "@reduxjs/toolkit";
 import { getProductStockAndPrice } from "../../services/apiProducts";
+import type { RootState } from "../../../store";
 
-export const addItemWithStockCheck = createAsyncThunk(
+export interface CartItem {
+  id: string | number;
+  name: string;
+  price: number;
+  quantity: number;
+  selectedPlatform: string;
+  image: string;
+}
+
+interface CartState {
+  items: CartItem[];
+  isCartOpen: boolean;
+  status: "idle" | "loading" | "error";
+}
+
+const initialState: CartState = {
+  items: [],
+  isCartOpen: false,
+  status: "idle",
+};
+
+export const addItemWithStockCheck = createAsyncThunk<
+  { in_stock: boolean; price: number },
+  CartItem,
+  { rejectValue: string }
+>(
   "cart/addItemWithStockCheck",
   async (product, { dispatch, rejectWithValue }) => {
     try {
@@ -18,17 +45,11 @@ export const addItemWithStockCheck = createAsyncThunk(
       dispatch(addToCart({ ...product, price: latestData.price }));
 
       return latestData;
-    } catch (error) {
+    } catch (error: any) {
       return rejectWithValue(error.message);
     }
   },
 );
-
-const initialState = {
-  items: [],
-  isCartOpen: false,
-  status: "idle",
-};
 
 const cartSlice = createSlice({
   name: "cart",
@@ -43,7 +64,7 @@ const cartSlice = createSlice({
     toggleCart: (state) => {
       state.isCartOpen = !state.isCartOpen;
     },
-    addToCart: (state, action) => {
+    addToCart: (state, action: PayloadAction<CartItem>) => {
       const product = action.payload;
       const alreadyInCart = state.items.find(
         (i) =>
@@ -56,7 +77,10 @@ const cartSlice = createSlice({
         state.items.push({ ...product, quantity: 1 });
       }
     },
-    removeFromCart: (state, action) => {
+    removeFromCart: (
+      state,
+      action: PayloadAction<{ id: string | number; selectedPlatform: string }>,
+    ) => {
       const { id, selectedPlatform } = action.payload;
       state.items = state.items.filter(
         (i) => !(i.id === id && i.selectedPlatform === selectedPlatform),
@@ -65,7 +89,10 @@ const cartSlice = createSlice({
     clearCart: (state) => {
       state.items = [];
     },
-    increaseItemQuantity(state, action) {
+    increaseItemQuantity(
+      state,
+      action: PayloadAction<{ id: string | number; selectedPlatform: string }>,
+    ) {
       const item = state.items.find(
         (item) =>
           item.id === action.payload.id &&
@@ -73,7 +100,10 @@ const cartSlice = createSlice({
       );
       if (item) item.quantity++;
     },
-    decreaseItemQuantity(state, action) {
+    decreaseItemQuantity(
+      state,
+      action: PayloadAction<{ id: string | number; selectedPlatform: string }>,
+    ) {
       const item = state.items.find(
         (item) =>
           item.id === action.payload.id &&
@@ -102,20 +132,27 @@ const cartSlice = createSlice({
   },
 });
 
-export const selectIsCartOpen = (state) => state.cart.isCartOpen;
-export const selectCartItems = (state) => state.cart.items;
-export const selectCartStatus = (state) => state.cart.status;
+export const selectIsCartOpen = (state: RootState) => state.cart.isCartOpen;
+export const selectCartItems = (state: RootState) => state.cart.items;
+export const selectCartStatus = (state: RootState) => state.cart.status;
 
-export const getTotalCartPrice = createSelector([selectCartItems], (items) =>
-  items
-    .filter((item) => typeof item.price === "number" && item.price > 0)
-    .reduce((sum, item) => sum + item.price * item.quantity, 0),
+export const getTotalCartPrice = createSelector(
+  [selectCartItems],
+  (items: CartItem[]) =>
+    items
+      .filter(
+        (item: CartItem) => typeof item.price === "number" && item.price > 0,
+      )
+      .reduce(
+        (sum: number, item: CartItem) => sum + item.price * item.quantity,
+        0,
+      ),
 );
 
 export const getTotalCartQuantity = createSelector(
   [selectCartItems],
-  (items) => {
-    return items.reduce((acc, item) => {
+  (items: CartItem[]) => {
+    return items.reduce((acc: number, item: CartItem) => {
       return acc + (item.quantity || 0);
     }, 0);
   },

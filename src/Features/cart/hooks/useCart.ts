@@ -1,4 +1,5 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/storeHooks";
 import {
   addItemWithStockCheck as addItemWithStockCheckAction,
   removeFromCart as removeFromCartAction,
@@ -13,27 +14,27 @@ import {
   selectCartItems,
   selectIsCartOpen,
   selectCartStatus,
+  type CartItem,
 } from "../cartSlice";
-import { useCallback } from "react";
 
-export const  useCart = () => {
-  const dispatch = useDispatch();
+export const useCart = () => {
+  const dispatch = useAppDispatch();
 
-  const status = useSelector(selectCartStatus);
-  const cartItems = useSelector(selectCartItems);
-  const isCartOpen = useSelector(selectIsCartOpen);
-  const totalPrice = useSelector(getTotalCartPrice);
-  const totalQuantity = useSelector(getTotalCartQuantity);
+  const status = useAppSelector(selectCartStatus);
+  const cartItems = useAppSelector(selectCartItems);
+  const isCartOpen = useAppSelector(selectIsCartOpen);
+  const totalPrice = useAppSelector(getTotalCartPrice);
+  const totalQuantity = useAppSelector(getTotalCartQuantity);
 
   const addItem = useCallback(
-    async (product) => {
+    async (product: CartItem) => {
       return await dispatch(addItemWithStockCheckAction(product)).unwrap();
     },
     [dispatch],
   );
 
   const removeItem = useCallback(
-    (id, selectedPlatform) => {
+    (id: number | string, selectedPlatform: string) => {
       dispatch(removeFromCartAction({ id, selectedPlatform }));
     },
     [dispatch],
@@ -48,13 +49,13 @@ export const  useCart = () => {
   }, [dispatch]);
 
   const increaseQty = useCallback(
-    (id, selectedPlatform) =>
+    (id: number | string, selectedPlatform: string) =>
       dispatch(increaseQtyAction({ id, selectedPlatform })),
     [dispatch],
   );
 
   const decreaseQty = useCallback(
-    (id, selectedPlatform) =>
+    (id: number | string, selectedPlatform: string) =>
       dispatch(decreaseQtyAction({ id, selectedPlatform })),
     [dispatch],
   );

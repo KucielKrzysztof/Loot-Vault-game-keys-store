@@ -1,9 +1,13 @@
-import { toast } from "react-hot-toast";
+import { toast, type Toast } from "react-hot-toast";
 import { X } from "lucide-react";
 
-export function notifyAddedToCart(game, platform, openCart) {
+export function notifyAddedToCart(
+  game: string,
+  platform: string,
+  openCart: () => void,
+) {
   toast.success(
-    (t) => (
+    (t: Toast) => (
       <div className="flex min-w-70 items-center gap-4 py-1">
         <div className="flex flex-1 flex-col">
           <strong className="block text-[10px] font-bold tracking-widest text-emerald-400 uppercase italic">
@@ -33,9 +37,13 @@ export function notifyAddedToCart(game, platform, openCart) {
   );
 }
 
-export const notifyGeneric = (message, buttonTxt, handleClick) => {
+export const notifyGeneric = (
+  message: string,
+  buttonTxt: string,
+  handleClick?: () => void,
+) => {
   toast.success(
-    (t) => (
+    (t: Toast) => (
       <div className="flex min-w-70 items-center justify-between gap-4 py-1">
         <h3 className="text-sm leading-tight font-black text-white">
           {message}
@@ -56,26 +64,34 @@ export const notifyGeneric = (message, buttonTxt, handleClick) => {
   );
 };
 
-export const notifyError = (message, error) => {
+export const notifyError = (message: string, error?: unknown): void => {
   toast.error(
-    (t) => (
-      <div className="flex min-w-70 items-center justify-between gap-4 py-1">
-        <div>
-          <h3 className="text-sm leading-tight font-black text-red-500">
-            {message}
-          </h3>
-          <p>{error}</p>
+    (t: Toast) => {
+      const errorDescription = error
+        ? error instanceof Error
+          ? error.message
+          : String(error)
+        : null;
+
+      return (
+        <div className="flex min-w-70 items-center justify-between gap-4 py-1">
+          <div>
+            <h3 className="text-sm leading-tight font-black text-red-500">
+              {message}
+            </h3>
+            {errorDescription && (
+              <p className="text-xs text-red-400">{errorDescription}</p>
+            )}
+          </div>
+          <button
+            onClick={() => toast.dismiss(t.id)}
+            className="flex flex-col items-center justify-center rounded-lg border border-white/5 bg-white/5 px-3 py-2 text-[11px] text-red-500 transition-all hover:bg-white/10 active:scale-95"
+          >
+            <X size={16} />
+          </button>
         </div>
-        <button
-          onClick={() => {
-            toast.dismiss(t.id);
-          }}
-          className="flex flex-col items-center justify-center rounded-lg border border-white/5 bg-white/5 px-3 py-2 text-[11px] text-red-500 transition-all"
-        >
-          <X />
-        </button>
-      </div>
-    ),
+      );
+    },
     { duration: 4000 },
   );
 };

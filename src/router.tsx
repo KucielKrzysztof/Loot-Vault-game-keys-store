@@ -1,4 +1,4 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, type RouteObject } from "react-router-dom";
 import { lazy } from "react";
 import AppLayout from "./ui/AppLayout";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
@@ -18,7 +18,7 @@ const ProductsListPage = lazy(
   () => import("./pages/ProductsListPage/ProductsListPage"),
 );
 
-export const routes = [
+export const routes: RouteObject[] = [
   {
     element: <AppLayout />,
     children: [

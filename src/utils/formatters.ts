@@ -1,4 +1,4 @@
-export const formatCurrency = (value) => {
+export const formatCurrency = (value: number): string => {
   return new Intl.NumberFormat("en-US", {
     style: "decimal",
     minimumFractionDigits: 2,

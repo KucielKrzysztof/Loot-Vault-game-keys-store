@@ -9,6 +9,7 @@ import CategoryGrid from "../../ui/CategoryCard/CategoryGrid";
 import Button from "../../ui/Button";
 import { useHomePageProducts } from "./hooks/useHomePageProducts";
 import SEO from "../../ui/SEO";
+import { useNavigate } from "react-router-dom";
 
 function HomePage() {
   const {
@@ -19,6 +20,8 @@ function HomePage() {
     bestsellers,
     loadingBestsellers,
   } = useHomePageProducts();
+
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-col items-center">
@@ -36,7 +39,7 @@ function HomePage() {
       <PageSection>
         <BannerGameFeatured
           image="/featured.jpg"
-          onClick={console.log("todo")}
+          onClick={() => navigate("/product/elden-ring")}
         />
       </PageSection>
 

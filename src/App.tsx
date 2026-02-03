@@ -18,11 +18,11 @@ const queryClient = new QueryClient({
   },
 });
 
-function App() {
+function App(): React.JSX.Element {
   return (
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        {/*  <ReactQueryDevtools /> */}
+        <ReactQueryDevtools />
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
             <StyledToaster />
