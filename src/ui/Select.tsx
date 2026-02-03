@@ -1,15 +1,49 @@
-import { createContext, useContext } from "react";
+import {
+  createContext,
+  useContext,
+  type ReactNode,
+  type ChangeEventHandler,
+} from "react";
 import { cn } from "../utils/cn";
 
-const SelectContext = createContext();
+interface OptionObject {
+  value: string;
+  name: string;
+}
+
+type RawOption = string | OptionObject;
+
+interface SelectContextType {
+  label: string;
+  options: OptionObject[];
+}
+
+const SelectContext = createContext<SelectContextType | undefined>(undefined);
+
+function useSelectContext() {
+  const context = useContext(SelectContext);
+  if (!context) {
+    throw new Error(
+      "Select compound components must be used within a <Select />",
+    );
+  }
+  return context;
+}
+
+interface SelectProps {
+  children: ReactNode;
+  label?: string;
+  options?: RawOption[];
+  className?: string;
+}
 
 function Select({
   children,
   label = "choose",
   options = ["one", "two", "three"],
   className = "",
-}) {
-  const normalizedOptions = options.map((opt) => {
+}: SelectProps) {
+  const normalizedOptions: OptionObject[] = options.map((opt) => {
     if (typeof opt === "string") {
       return { value: opt, name: opt };
     }
@@ -30,8 +64,13 @@ function Select({
   );
 }
 
-function Label({ className }) {
-  const { label } = useContext(SelectContext);
+/* SUB-COMPONENTS */
+interface SubComponentProps {
+  className?: string;
+}
+
+function Label({ className }: SubComponentProps) {
+  const { label } = useSelectContext();
   if (!label) return null;
   return (
     <div
@@ -45,8 +84,12 @@ function Label({ className }) {
   );
 }
 
-function Content({ className, onChange }) {
-  const { options } = useContext(SelectContext);
+interface ContentProps extends SubComponentProps {
+  onChange?: ChangeEventHandler<HTMLSelectElement>;
+}
+
+function Content({ className, onChange }: ContentProps) {
+  const { options } = useSelectContext();
 
   return (
     <select

@@ -1,4 +1,10 @@
-function CheckBox({ id, checked, onChange }) {
+interface CheckBoxProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  id: string;
+  checked: boolean;
+  onChange: () => void;
+}
+
+function CheckBox({ id, checked, onChange }: CheckBoxProps) {
   return (
     <input
       type="checkbox"

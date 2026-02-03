@@ -1,6 +1,6 @@
 import { Toaster } from "react-hot-toast";
 
-function StyledToaster() {
+function StyledToaster(): React.JSX.Element {
   return (
     <Toaster
       position="top-center"

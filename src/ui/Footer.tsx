@@ -2,23 +2,29 @@ import { Link } from "react-router-dom";
 import AppButton from "./AppButton";
 import appleLogo from "../assets/apple-logo.png";
 import googleStoreLogo from "../assets/google-store-logo.png";
-import { Facebook, Instagram, Twitter } from "lucide-react";
+import { Facebook, Instagram, Twitter, type LucideIcon } from "lucide-react";
 
-function Footer() {
-  const date = new Date().getFullYear();
-  const links = [
+interface SocialLink {
+  name: string;
+  icon: LucideIcon;
+  href: string;
+}
+
+function Footer(): React.JSX.Element {
+  const date: number = new Date().getFullYear();
+  const links: string[] = [
     "Terms and Conditions",
     "Privacy Policy",
     "Newsletter",
     "Contact Us",
   ];
-  const socials = [
+  const socials: SocialLink[] = [
     { name: "Instagram", icon: Instagram, href: "#" },
     { name: "Facebook", icon: Facebook, href: "#" },
     { name: "Twitter", icon: Twitter, href: "#" },
   ];
 
-  const sectionClasses =
+  const sectionClasses: string =
     "flex flex-col items-center justify-center py-10 px-6 border-gray-500 lg:my-2";
 
   return (

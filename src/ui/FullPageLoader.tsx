@@ -1,6 +1,6 @@
 import { Loader2 } from "lucide-react";
 
-function FullPageLoader() {
+function FullPageLoader(): React.JSX.Element {
   return (
     <div className="animate-in fade-in fixed inset-0 z-100 flex flex-col items-center justify-center bg-black/80 backdrop-blur-3xl duration-300">
       <div className="relative">

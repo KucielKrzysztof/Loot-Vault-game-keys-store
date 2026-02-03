@@ -1,4 +1,26 @@
-function FormInput({ label, register, name, validation, error, ...props }) {
+import React from "react";
+import type {
+  UseFormRegister,
+  RegisterOptions,
+  FieldError,
+} from "react-hook-form";
+
+interface FormInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  label?: string;
+  name: string;
+  register: UseFormRegister<any>;
+  validation?: RegisterOptions;
+  error?: FieldError;
+}
+
+function FormInput({
+  label,
+  register,
+  name,
+  validation,
+  error,
+  ...props
+}: FormInputProps) {
   return (
     <div className="flex w-full flex-col gap-1">
       {label && (

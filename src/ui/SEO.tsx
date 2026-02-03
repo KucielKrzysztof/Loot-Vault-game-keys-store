@@ -1,6 +1,13 @@
 import { Helmet } from "react-helmet-async";
 
-function SEO({ title, description, image, type = "website" }) {
+interface SEOProps {
+  title: string;
+  description: string;
+  image?: string;
+  type?: string;
+}
+
+function SEO({ title, description, image, type = "website" }: SEOProps) {
   const siteName = "Vault Store";
   const fullTitle = `${title} | ${siteName}`;
 

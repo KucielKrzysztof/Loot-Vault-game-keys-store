@@ -1,6 +1,18 @@
 import CheckBox from "./CheckBox";
 
-function CheckBoxWrapper({ id, label, checked, onChange }) {
+interface CheckBoxWrapperProps {
+  id: string;
+  label?: string;
+  checked: boolean;
+  onChange: () => void;
+}
+
+function CheckBoxWrapper({
+  id,
+  label,
+  checked,
+  onChange,
+}: CheckBoxWrapperProps) {
   return (
     <div className="flex items-center gap-2">
       <CheckBox id={id} checked={checked} onChange={onChange} />
