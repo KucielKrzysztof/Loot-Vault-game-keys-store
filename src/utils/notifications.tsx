@@ -1,5 +1,6 @@
 import { toast, type Toast } from "react-hot-toast";
 import { X } from "lucide-react";
+import type { ReactNode } from "react";
 
 export function notifyAddedToCart(
   game: string,
@@ -39,7 +40,7 @@ export function notifyAddedToCart(
 
 export const notifyGeneric = (
   message: string,
-  buttonTxt: string,
+  buttonTxt: string | ReactNode,
   handleClick?: () => void,
 ) => {
   toast.success(

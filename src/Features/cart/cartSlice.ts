@@ -9,7 +9,7 @@ import type { RootState } from "../../../store";
 
 export interface CartItem {
   id: string | number;
-  name: string;
+  title: string;
   price: number;
   quantity: number;
   selectedPlatform: string;

@@ -1,0 +1,51 @@
+import { ReactNode, FormEventHandler } from "react";
+
+import Button from "../../../ui/Button";
+import LoginWithGoogle from "./LoginWithGoogle";
+
+interface AuthFormProps {
+  onSubmit: FormEventHandler<HTMLFormElement>;
+  title: string;
+  isLoading: boolean;
+  children: ReactNode;
+  buttonLabel: string;
+  footer?: ReactNode;
+}
+
+function AuthForm({
+  onSubmit,
+  title,
+  isLoading,
+  children,
+  buttonLabel,
+  footer,
+}: AuthFormProps): React.JSX.Element {
+  return (
+    <form
+      onSubmit={onSubmit}
+      className="bg-surface mx-auto mt-10 flex max-w-md flex-col gap-4 rounded-3xl border border-white/10 p-8 shadow-2xl"
+    >
+      <h2 className="mb-4 text-center text-2xl font-black uppercase">
+        {title}
+      </h2>
+
+      {children}
+
+      <Button
+        type="submit"
+        variant="primary"
+        disabled={isLoading}
+        className="mt-2 font-black uppercase"
+      >
+        {isLoading ? "Processing..." : buttonLabel}
+      </Button>
+
+      {/* GOOGLE OAUTH */}
+      <LoginWithGoogle />
+
+      {footer && <div className="mt-2 text-center text-sm">{footer}</div>}
+    </form>
+  );
+}
+
+export default AuthForm;
