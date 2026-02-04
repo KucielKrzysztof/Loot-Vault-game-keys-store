@@ -1,6 +1,28 @@
+import type { ReactNode } from "react";
 import SearchItem from "./SearchItem";
 
-function SearchDropdown({ results, isPending, error, onSelect }) {
+export interface SearchResult {
+  id: string | number;
+  title: string;
+  slug: string;
+  price: number;
+  original_price: number | null;
+  image: string;
+}
+
+interface SearchDropdownProps {
+  results: SearchResult[];
+  isPending: boolean;
+  error: unknown;
+  onSelect: (slug: string) => void;
+}
+
+function SearchDropdown({
+  results,
+  isPending,
+  error,
+  onSelect,
+}: SearchDropdownProps): React.JSX.Element {
   if (isPending) {
     return (
       <Container>
@@ -50,7 +72,7 @@ function SearchDropdown({ results, isPending, error, onSelect }) {
   );
 }
 
-const Container = ({ children }) => (
+const Container = ({ children }: { children: ReactNode }) => (
   <div className="bg-surface animate-in fade-in slide-in-from-top-3 absolute top-full z-50 max-h-137.5 w-full overflow-hidden overflow-y-scroll rounded-b-3xl border-x border-b border-white/10 pb-3 shadow-2xl duration-500">
     {children}
   </div>

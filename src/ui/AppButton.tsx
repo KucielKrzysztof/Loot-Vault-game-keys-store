@@ -1,4 +1,10 @@
-function AppButton({ subtitle, title, icon }) {
+interface AppButtonProps {
+  subtitle: string;
+  title: string;
+  icon: React.ReactNode;
+}
+
+function AppButton({ subtitle, title, icon }: AppButtonProps) {
   return (
     <button className="flex h-13 w-41.25 shrink-0 cursor-pointer items-center gap-3 rounded-xl border border-white/10 bg-black px-3 py-2 text-white transition-all hover:bg-zinc-900">
       <div className="flex h-7 w-7 shrink-0 items-center justify-center">

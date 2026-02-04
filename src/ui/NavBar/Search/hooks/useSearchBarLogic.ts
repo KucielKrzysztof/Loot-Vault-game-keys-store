@@ -1,15 +1,32 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { useDebounce } from "../../../../hooks/useDebounce";
 import { useSearch } from "../../../../Features/products/hooks/useSearch";
 
-export const useSearchBarLogic = ({ isOpen, setOpen, isLargeScreen }) => {
-  const navigate = useNavigate();
-  const [query, setQuery] = useState("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+export interface UseSearchBarLogicProps {
+  isOpen: boolean;
+  setOpen: Dispatch<SetStateAction<boolean>>;
+  isLargeScreen: boolean;
+}
 
-  const searchRef = useRef();
-  const inputRef = useRef();
+export const useSearchBarLogic = ({
+  isOpen,
+  setOpen,
+  isLargeScreen,
+}: UseSearchBarLogicProps) => {
+  const navigate = useNavigate();
+  const [query, setQuery] = useState<string>("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+
+  const searchRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const debouncedQuery = useDebounce(query, 500);
   const { isPending, results, error } = useSearch(debouncedQuery);
@@ -31,7 +48,7 @@ export const useSearchBarLogic = ({ isOpen, setOpen, isLargeScreen }) => {
     inputRef.current?.focus();
   }, [isOpen, setOpen, isLargeScreen]);
 
-  function handleSelect(slug) {
+  function handleSelect(slug: string): void {
     navigate(`/product/${slug}`);
     setIsDropdownOpen(false);
     setQuery("");

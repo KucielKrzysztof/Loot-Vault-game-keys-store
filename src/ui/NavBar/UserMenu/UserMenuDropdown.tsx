@@ -1,6 +1,21 @@
 import { LogOut, Package, User } from "lucide-react";
 import { Link } from "react-router-dom";
-function UserMenuDropdown({ fullName, email, onClose, isLoading, logout }) {
+
+interface UserMenuDropdownProps {
+  fullName: string;
+  email: string;
+  onClose: () => void;
+  isLoading: boolean;
+  logout: () => void;
+}
+
+function UserMenuDropdown({
+  fullName,
+  email,
+  onClose,
+  isLoading,
+  logout,
+}: UserMenuDropdownProps): React.JSX.Element {
   return (
     <div className="bg-surface/90 animate-in fade-in zoom-in slide-in-from-top-2 absolute right-0 z-100 mt-3 w-56 origin-top-right overflow-hidden rounded-3xl border border-white/10 shadow-2xl backdrop-blur-xl duration-200">
       <div className="flex flex-col border-b border-white/5 bg-white/5 px-5 py-4">

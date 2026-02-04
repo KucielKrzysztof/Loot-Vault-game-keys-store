@@ -3,7 +3,14 @@ import CategoryCard from "./CategoryCard";
 
 import { CATEGORIES } from "./assets/categoryData";
 
-function CategoryGrid() {
+export interface Category {
+  title: string;
+  bg: string;
+  char: string;
+  value: string;
+}
+
+function CategoryGrid(): React.JSX.Element {
   return (
     <section className="w-full px-2 py-8 sm:px-4">
       <div className="mb-4 flex items-center justify-between sm:mb-8">
@@ -19,12 +26,12 @@ function CategoryGrid() {
       </div>
 
       <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 lg:gap-6">
-        {CATEGORIES.map((cat) => (
+        {(CATEGORIES as Category[]).map((cat) => (
           <CategoryCard
             key={cat.title}
             title={cat.title}
-            bgImage={cat.bg}
-            charImage={cat.char}
+            bg={cat.bg}
+            char={cat.char}
             to={`/products?genre=${cat.value}`}
           />
         ))}

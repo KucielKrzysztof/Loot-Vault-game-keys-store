@@ -5,19 +5,24 @@ import { useClickOutside } from "../../../hooks/useClickOutside";
 import UserMenuToggle from "./UserMenuToggle";
 import UserMenuDropdown from "./UserMenuDropdown";
 
-function UserMenu() {
-  const [isOpen, setIsOpen] = useState(false);
+function UserMenu(): React.JSX.Element {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   const { user } = useUser();
   const { logout, isPending } = useLogout();
-  const menuRef = useRef();
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(menuRef, () => setIsOpen(false));
 
-  const fullName =
+  const fullName: string =
     user?.user_metadata?.fullName || user?.user_metadata?.full_name || "User";
-  const avatarUrl =
-    user?.user_metadata?.avatar || user?.user_metadata?.picture || "";
-  const email = user?.email || "";
+
+  const avatarUrl: string =
+    user?.user_metadata?.avatar ||
+    user?.user_metadata?.avatar_url ||
+    user?.user_metadata?.picture ||
+    "";
+
+  const email: string = user?.email || "";
 
   return (
     <div className="relative" ref={menuRef}>

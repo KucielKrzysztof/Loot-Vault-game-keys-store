@@ -9,15 +9,15 @@ import { useMediaQuery } from "../../hooks/useMediaQuery";
 import { useUser } from "../../Features/auth/hooks/useUser";
 import UserMenu from "./UserMenu/UserMenu";
 
-function NavBar() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
+function NavBar(): React.JSX.Element {
+  const [isSearchOpen, setIsSearchOpen] = useState<boolean>(false);
   const { totalQuantity, toggle } = useCart();
   const { isAuthenticated } = useUser();
 
-  const textOutline =
+  const textOutline: string =
     "[text-shadow:_-1px_-1px_0_#000,_1px_-1px_0_#000,_-1px_1px_0_#000,_1px_1px_0_#000]";
 
-  const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+  const isLargeScreen: boolean = useMediaQuery("(min-width: 1024px)");
 
   useEffect(() => {
     if (isLargeScreen) setIsSearchOpen(false);
@@ -26,6 +26,7 @@ function NavBar() {
   return (
     <nav className="bg-primary/80 fixed top-0 z-50 h-16 w-full border-b border-white/10 p-2 backdrop-blur-sm">
       <div className="relative flex h-full items-center justify-between px-4">
+        {/* LOGO & PRODUCTS LINK */}
         <div
           className={`flex items-center gap-2 ${isSearchOpen ? "hidden lg:flex" : "flex"}`}
         >
@@ -38,21 +39,26 @@ function NavBar() {
           </NavLink>
         </div>
 
+        {/* SEARCH BAR */}
         <SearchBar
           isOpen={isSearchOpen}
           setOpen={setIsSearchOpen}
           isLargeScreen={isLargeScreen}
         />
 
+        {/* ACTIONS (Cart, Search, User) */}
         <div
           className={`flex items-center gap-3 ${isSearchOpen ? "hidden lg:flex" : "flex"}`}
         >
+          {/* Mobile Search Toggle */}
           <button
             onClick={() => setIsSearchOpen(true)}
             className="rounded-full p-2 text-gray-300 hover:text-white lg:hidden"
           >
             <Search size={30} />
           </button>
+
+          {/* Cart Toggle */}
           <button
             onClick={toggle}
             className="group relative text-gray-300 transition-all hover:text-white"
@@ -69,6 +75,8 @@ function NavBar() {
               </span>
             )}
           </button>
+
+          {/* User Section */}
           {isAuthenticated ? (
             <UserMenu />
           ) : (

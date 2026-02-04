@@ -6,7 +6,7 @@ import FullPageLoader from "./FullPageLoader";
 import CartDrawer from "../Features/cart/components/CartDrawer";
 import { useScrollOnNavigation } from "../hooks/useScrollOnNavigation";
 
-function AppLayout() {
+function AppLayout(): React.JSX.Element {
   const location = useLocation();
   useScrollOnNavigation();
 

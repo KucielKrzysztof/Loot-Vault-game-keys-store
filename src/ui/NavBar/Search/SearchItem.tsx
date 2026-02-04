@@ -1,6 +1,22 @@
 import { formatCurrency } from "../../../utils/formatters";
 
-function SearchItem({ title, slug, price, originalPrice, image, onSelect }) {
+interface SearchItemProps {
+  title: string;
+  slug: string;
+  price: number;
+  originalPrice?: number;
+  image: string;
+  onSelect: (slug: string) => void;
+}
+
+function SearchItem({
+  title,
+  slug,
+  price,
+  originalPrice,
+  image,
+  onSelect,
+}: SearchItemProps) {
   return (
     <div
       onClick={() => onSelect(slug)}
@@ -19,9 +35,11 @@ function SearchItem({ title, slug, price, originalPrice, image, onSelect }) {
           <span className="truncate font-bold">{title}</span>
         </div>
         <div className="text-secondary ml-auto flex gap-2">
-          <span className="text-[13px] text-gray-500 line-through">
-            ${formatCurrency(originalPrice)}
-          </span>
+          {originalPrice && (
+            <span className="text-[13px] text-gray-500 line-through">
+              ${formatCurrency(originalPrice)}
+            </span>
+          )}
           <span className="text-sm">${formatCurrency(price)}</span>
         </div>
       </div>

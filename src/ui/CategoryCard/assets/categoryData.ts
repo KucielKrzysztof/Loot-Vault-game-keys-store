@@ -1,3 +1,4 @@
+import { type Category } from "./../CategoryGrid";
 import actionChar from "./action-char.png";
 import shooterChar from "./shooter-char.png";
 import fightingChar from "./fighting-char.png";
@@ -12,7 +13,7 @@ import sportsBg from "./sports-bg.jpg";
 import adventureBg from "./adventure-bg.jpg";
 import rpgBg from "./rpg-bg.jpg";
 
-export const CATEGORIES = [
+export const CATEGORIES: Category[] = [
   {
     title: "Action",
     bg: actionBg,

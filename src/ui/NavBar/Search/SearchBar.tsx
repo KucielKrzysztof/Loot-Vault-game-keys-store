@@ -2,9 +2,16 @@ import { Search, X } from "lucide-react";
 import SearchDropdown from "./SearchDropdown";
 import { useClickOutside } from "../../../hooks/useClickOutside";
 import { useKeyDown } from "../../../hooks/useKeyDown";
-import { useSearchBarLogic } from "./hooks/useSearchBarLogic";
+import {
+  useSearchBarLogic,
+  type UseSearchBarLogicProps,
+} from "./hooks/useSearchBarLogic";
 
-function SearchBar({ isOpen, setOpen, isLargeScreen }) {
+function SearchBar({
+  isOpen,
+  setOpen,
+  isLargeScreen,
+}: UseSearchBarLogicProps): React.JSX.Element {
   const {
     query,
     setQuery,

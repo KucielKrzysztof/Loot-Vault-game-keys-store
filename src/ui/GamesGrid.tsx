@@ -1,12 +1,47 @@
 import { ChevronRight } from "lucide-react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, type ReactNode } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { formatCurrency } from "../utils/formatters";
 import Skeleton from "./Skeleton";
 
-const GamesContext = createContext();
+/* TYPES */
+export interface Game {
+  id: number | string;
+  title: string;
+  slug: string;
+  price: number;
+  original_price: number | null;
+  discount: number;
+  image: string;
+  in_stock: boolean;
+}
 
-function GamesGrid({ children, games, isLoading }) {
+interface GamesContextType {
+  games: Game[] | undefined;
+  isLoading: boolean;
+}
+
+interface GamesGridProps {
+  children: ReactNode;
+  games: Game[] | undefined;
+  isLoading: boolean;
+}
+
+/* Context */
+
+const GamesContext = createContext<GamesContextType | undefined>(undefined);
+
+/* Helper hook for context */
+function useGames() {
+  const context = useContext(GamesContext);
+  if (!context)
+    throw new Error("GamesGrid components must be used within <GamesGrid />");
+  return context;
+}
+
+/* COMPONENTS */
+
+function GamesGrid({ children, games, isLoading }: GamesGridProps) {
   return (
     <GamesContext.Provider value={{ games, isLoading }}>
       <div className="flex flex-col justify-center gap-4 py-5">{children}</div>
@@ -14,7 +49,7 @@ function GamesGrid({ children, games, isLoading }) {
   );
 }
 
-function GamesHeader({ children, to }) {
+function GamesHeader({ children, to }: { children: ReactNode; to: string }) {
   return (
     <Link
       to={to}
@@ -30,7 +65,7 @@ function GamesHeader({ children, to }) {
 }
 
 function GamesList() {
-  const { games, isLoading } = useContext(GamesContext);
+  const { games, isLoading } = useGames();
 
   if (isLoading) {
     return (
@@ -54,7 +89,7 @@ function GamesList() {
   );
 }
 
-function GamesItem({ game }) {
+function GamesItem({ game }: { game: Game }) {
   const navigate = useNavigate();
 
   const {
@@ -66,6 +101,7 @@ function GamesItem({ game }) {
     image,
     in_stock: inStock,
   } = game;
+
   return (
     <div className="bg-surface flex flex-col rounded-2xl p-2">
       <div className="aspect-16:9 group relative rounded-xl">
@@ -96,7 +132,7 @@ function GamesItem({ game }) {
         <div className="flex items-center gap-1 text-sm md:text-lg">
           {inStock ? (
             <div className="text-secondary flex items-center gap-1">
-              {discount > 0 && (
+              {discount > 0 && originalPrice && (
                 <span className="text-[11px] text-gray-400 line-through md:text-sm">
                   ${formatCurrency(originalPrice)}
                 </span>

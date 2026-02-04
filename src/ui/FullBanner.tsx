@@ -1,15 +1,38 @@
+import type { ReactNode } from "react";
 import { cn } from "../utils/cn";
+
+/* TYPES */
+
+interface FullBannerProps {
+  children: ReactNode;
+  className?: string;
+}
+
+interface BannerImageProps {
+  src: string;
+  alt: string;
+  className?: string;
+}
+
+interface BannerOverlayProps {
+  className?: string;
+}
+
+interface BannerContentProps {
+  children: ReactNode;
+  className?: string;
+}
 
 function FullBanner({
   children,
   className = "h-100 md:h-150 overflow-hidden bg-neutral-900",
-}) {
+}: FullBannerProps): React.JSX.Element {
   return (
     <section className={cn("relative w-full", className)}>{children}</section>
   );
 }
 
-function BannerImage({ src, alt, className }) {
+function BannerImage({ src, alt, className }: BannerImageProps) {
   return (
     <img
       src={src}
@@ -20,11 +43,14 @@ function BannerImage({ src, alt, className }) {
   );
 }
 
-function BannerOverlay({ className = "bg-black/50" }) {
+function BannerOverlay({ className = "bg-black/50" }: BannerOverlayProps) {
   return <div className={cn("absolute inset-0", className)} />;
 }
 
-function BannerContent({ children, className = "items-start justify-center" }) {
+function BannerContent({
+  children,
+  className = "items-start justify-center",
+}: BannerContentProps) {
   return (
     <div
       className={cn(

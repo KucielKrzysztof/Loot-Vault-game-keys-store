@@ -1,13 +1,61 @@
-import { createContext, useContext, useState, useId } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useId,
+  type ReactNode,
+} from "react";
 import { ChevronDown } from "lucide-react";
 
-const AccordionContext = createContext();
-const ItemContext = createContext();
+/* TYPES */
+interface AccordionContextType {
+  openItems: string[];
+  toggleItem: (id: string) => void;
+}
 
-function Accordion({ children, allowMultiple = false, className = "" }) {
-  const [openItems, setOpenItems] = useState([]);
+interface ItemContextType {
+  id: string;
+}
 
-  function toggleItem(id) {
+/* Create COntext's */
+const AccordionContext = createContext<AccordionContextType | undefined>(
+  undefined,
+);
+const ItemContext = createContext<ItemContextType | undefined>(undefined);
+
+/* Helper hooks for useContext */
+function useAccordion() {
+  const context = useContext(AccordionContext);
+  if (!context)
+    throw new Error("Accordion components must be used within <Accordion />");
+  return context;
+}
+
+function useItem() {
+  const context = useContext(ItemContext);
+  if (!context)
+    throw new Error(
+      "Accordion.Item components must be used within <Accordion.Item />",
+    );
+  return context;
+}
+
+/* Components */
+
+interface AccordionProps {
+  children: ReactNode;
+  allowMultiple?: boolean;
+  className?: string;
+}
+
+function Accordion({
+  children,
+  allowMultiple = false,
+  className = "",
+}: AccordionProps) {
+  const [openItems, setOpenItems] = useState<string[]>([]);
+
+  function toggleItem(id: string) {
     setOpenItems((prev) => {
       if (allowMultiple) {
         return prev.includes(id)
@@ -27,7 +75,14 @@ function Accordion({ children, allowMultiple = false, className = "" }) {
   );
 }
 
-function Item({ children, className = "" }) {
+/* Sub-Components */
+
+interface ItemProps {
+  children: ReactNode;
+  className?: string;
+}
+
+function Item({ children, className = "" }: ItemProps) {
   const id = useId();
   return (
     <ItemContext.Provider value={{ id }}>
@@ -40,9 +95,9 @@ function Item({ children, className = "" }) {
   );
 }
 
-function Header({ children }) {
-  const { openItems, toggleItem } = useContext(AccordionContext);
-  const { id } = useContext(ItemContext);
+function Header({ children }: { children: ReactNode }) {
+  const { openItems, toggleItem } = useAccordion();
+  const { id } = useItem();
   const isOpen = openItems.includes(id);
 
   return (
@@ -58,9 +113,9 @@ function Header({ children }) {
   );
 }
 
-function Content({ children }) {
-  const { openItems } = useContext(AccordionContext);
-  const { id } = useContext(ItemContext);
+function Content({ children }: { children: ReactNode }) {
+  const { openItems } = useAccordion();
+  const { id } = useItem();
   const isOpen = openItems.includes(id);
 
   return (
