@@ -1,0 +1,89 @@
+import {
+  keepPreviousData,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { useSearchParams } from "react-router-dom";
+import { getProducts } from "../../../services/apiProducts";
+import type {
+  FilterArgs,
+  Product,
+  ProductsResponse,
+  SortArgs,
+} from "../types/product";
+
+const PAGE_SIZE = 12;
+
+/* TYPES */
+interface UseProductsOptions {
+  isTrending?: boolean;
+  isRecommended?: boolean;
+  isBestseller?: boolean;
+}
+
+export const useProducts = (options: UseProductsOptions = {}) => {
+  const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
+
+  const genre = searchParams.get("genre") || "all";
+  const platform = searchParams.get("platform") || "all";
+  const minPrice = Number(searchParams.get("minPrice")) || 0;
+  const maxPrice = Number(searchParams.get("maxPrice")) || 1000;
+  const sortByRaw = searchParams.get("sortBy") || "price-asc";
+  const page = Number(searchParams.get("page")) || 1;
+
+  const filter: FilterArgs = {
+    genre,
+    platform,
+    minPrice,
+    maxPrice,
+    isTrending: options.isTrending ?? null,
+    isRecommended: options.isRecommended ?? null,
+    isBestseller: options.isBestseller ?? null,
+  };
+
+  const [fieldRaw, directionRaw] = sortByRaw.split("-");
+
+  const sortBy: SortArgs = {
+    field: fieldRaw as keyof Product,
+    direction: (directionRaw as "asc" | "desc") || "asc",
+  };
+
+  const queryKey = ["products", filter, sortByRaw, page];
+  const nextStepKey = ["products", filter, sortByRaw, page + 1];
+
+  const { isPending, data, error, isPlaceholderData } =
+    useQuery<ProductsResponse>({
+      queryKey: queryKey,
+      queryFn: () => getProducts({ filter, sortBy, page }),
+      placeholderData: keepPreviousData,
+      staleTime: 60 * 1000 * 5,
+      gcTime: 60 * 1000 * 15,
+      refetchInterval: 60 * 1000 * 5,
+      refetchOnWindowFocus: false,
+      retry: 2,
+      enabled: true,
+    });
+
+  const count = data?.count || 0;
+  const numOfPages = Math.ceil(count / PAGE_SIZE);
+
+  /* prefetch if more than one page */
+  if (page < numOfPages) {
+    queryClient.prefetchQuery({
+      queryKey: nextStepKey,
+      queryFn: () => getProducts({ filter, sortBy, page: page + 1 }),
+    });
+  }
+
+  return {
+    products: data?.data,
+    count: data?.count,
+    isPending,
+    error,
+    isPlaceholderData,
+    numOfPages,
+    page,
+    sortBy,
+  };
+};

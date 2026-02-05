@@ -1,0 +1,42 @@
+import { Link } from "react-router-dom";
+import CategoryCard from "./CategoryCard";
+
+import { CATEGORIES } from "./assets/categoryData";
+
+export interface Category {
+  title: string;
+  bg: string;
+  char: string;
+  value: string;
+}
+
+function CategoryGrid(): React.JSX.Element {
+  return (
+    <section className="w-full px-2 py-8 sm:px-4">
+      <div className="mb-4 flex items-center justify-between sm:mb-8">
+        <h2 className="text-xl font-black tracking-tighter uppercase sm:text-3xl">
+          Categories
+        </h2>
+        <Link
+          to="/products"
+          className="rounded-md bg-white/5 px-2 py-1 text-[10px] font-bold tracking-widest text-gray-400 uppercase transition-colors hover:text-white sm:px-4 sm:py-2 sm:text-xs"
+        >
+          FIND MORE
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-4 lg:gap-6">
+        {(CATEGORIES as Category[]).map((cat) => (
+          <CategoryCard
+            key={cat.title}
+            title={cat.title}
+            bg={cat.bg}
+            char={cat.char}
+            to={`/products?genre=${cat.value}`}
+          />
+        ))}
+      </div>
+    </section>
+  );
+}
+export default CategoryGrid;
