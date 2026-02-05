@@ -2,7 +2,13 @@ import { Home } from "lucide-react";
 import Button from "../../../ui/Button";
 import { Link } from "react-router-dom";
 
-function OrderSuccessFooter({ email }) {
+interface orderSuccessFooterProps {
+  email: string;
+}
+
+function OrderSuccessFooter({
+  email,
+}: orderSuccessFooterProps): React.JSX.Element {
   return (
     <div className="mt-6 flex flex-col gap-4 sm:mt-10">
       <Link to="/home">

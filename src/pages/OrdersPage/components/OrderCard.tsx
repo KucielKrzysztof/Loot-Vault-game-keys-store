@@ -1,8 +1,17 @@
+import type React from "react";
 import OrderKeyItem from "../../../Features/orders/components/OrderKeyItem";
+import type { Order, OrderItem } from "../../../Features/orders/types/order";
 import { formatCurrency } from "../../../utils/formatters";
 
-function OrderCard({ order }) {
+interface OrderCardProps {
+  order: Order;
+}
+
+function OrderCard({ order }: OrderCardProps): React.JSX.Element {
   const { id, created_at, total_price, items } = order;
+
+  const orderItems = items as unknown as OrderItem[];
+
   const formattedDate = new Date(created_at).toLocaleDateString();
 
   return (
@@ -29,7 +38,7 @@ function OrderCard({ order }) {
       </div>
 
       <div className="space-y-4">
-        {items.map((item, index) => (
+        {orderItems.map((item, index) => (
           <OrderKeyItem key={`${id}-${item.licenseKey || index}`} item={item} />
         ))}
       </div>

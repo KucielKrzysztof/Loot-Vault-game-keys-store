@@ -4,7 +4,7 @@ import getMobileAppBannerImg from "../../../assets/mobile-app.png";
 import appleLogo from "../../../assets/apple-logo.png";
 import googleStoreLogo from "../../../assets/google-store-logo.png";
 
-function MobileAppBanner() {
+function MobileAppBanner(): React.JSX.Element {
   return (
     <FullBanner className="h-[450px] md:h-[500px]">
       <FullBanner.Image src={getMobileAppBannerImg} alt="Mobile App" />
@@ -21,7 +21,7 @@ function MobileAppBanner() {
             <AppButton
               subtitle="Download on the"
               title="App Store"
-              store="apple"
+              /*  store="apple" */
               icon={
                 <img
                   src={appleLogo}
@@ -34,7 +34,7 @@ function MobileAppBanner() {
             <AppButton
               subtitle="Download on the"
               title="Google Play"
-              store="google"
+              /* store="google" */
               icon={
                 <img
                   src={googleStoreLogo}

@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Button from "../../../ui/Button";
 
-function OrdersEmpty() {
+function OrdersEmpty(): React.JSX.Element {
   return (
     <div className="flex h-[60vh] flex-col items-center justify-center text-center">
       <h2 className="mb-4 text-2xl font-black text-white uppercase italic">

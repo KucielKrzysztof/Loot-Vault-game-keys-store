@@ -1,10 +1,15 @@
+import type { Product } from "../../../Features/products/types/product";
 import Button from "../../../ui/Button";
 import Select from "../../../ui/Select";
 import { useGameCard } from "../hooks/useGameCard";
 import { GameBadges } from "./GameBadges";
 import GamePrice from "./GamePrice";
 
-function GameCard({ product }) {
+interface GameCardProps {
+  product: Product;
+}
+
+function GameCard({ product }: GameCardProps): React.JSX.Element {
   const {
     title,
     image,
@@ -24,11 +29,13 @@ function GameCard({ product }) {
     isCheckingStock,
   } = useGameCard(product);
 
+  const platformOptions = (platforms as string[]) || [];
+
   return (
     <div className="bg-surface/20 grid grid-cols-1 gap-8 rounded-3xl p-8 shadow-2xl backdrop-blur-xl lg:grid-cols-2">
       <div className="overflow-hidden rounded-2xl border border-white/10 shadow-lg">
         <img
-          src={image}
+          src={image || "/vault_logo.png"}
           alt={title}
           loading="lazy"
           className={`h-full w-full object-cover transition-transform duration-500 hover:scale-105 ${!inStock && "grayscale"}`}
@@ -44,11 +51,11 @@ function GameCard({ product }) {
         <GameBadges region={region} inStock={inStock} rating={rating} />
         <GamePrice
           price={price}
-          originalPrice={originalPrice}
+          originalPrice={originalPrice ?? price ?? 0}
           discount={discount}
         />
 
-        <Select label="Choose Platform" options={platforms}>
+        <Select label="Choose Platform" options={platformOptions}>
           <Select.Label />
           <Select.Content
             onChange={(e) => setSelectedPlatform(e.target.value)}

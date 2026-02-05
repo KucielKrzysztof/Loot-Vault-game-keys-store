@@ -9,7 +9,19 @@ import { useProductFilters } from "../../Features/products/hooks/useProductFilte
 import MobileFilterDrawer from "./components/MobileFilterDrawer";
 import MobileFilterTriggerButton from "./components/MobileFilterTriggerButton";
 
-function ProductsListPage() {
+export interface FilterProps {
+  tempMin: string;
+  tempMax: string;
+  tempGenre: string;
+  tempPlatform: string;
+  setTempMin: (v: string) => void;
+  setTempMax: (v: string) => void;
+  setTempGenre: (v: string) => void;
+  setTempPlatform: (v: string) => void;
+  onApply: () => void;
+}
+
+function ProductsListPage(): React.JSX.Element {
   const { isPending, products, count, error, numOfPages, page, sortBy } =
     useProducts();
 
@@ -17,9 +29,15 @@ function ProductsListPage() {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const filterProps = {
-    ...filters,
-    ...setters,
+  const filterProps: FilterProps = {
+    tempMin: filters.tempMin,
+    tempMax: filters.tempMax,
+    tempGenre: filters.tempGenre,
+    tempPlatform: filters.tempPlatform,
+    setTempMin: setters.setTempMin,
+    setTempMax: setters.setTempMax,
+    setTempGenre: setters.setTempGenre,
+    setTempPlatform: setters.setTempPlatform,
     onApply: () => {
       applyFilters();
       setIsMobileMenuOpen(false);

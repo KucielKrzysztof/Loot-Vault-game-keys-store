@@ -12,8 +12,11 @@ export const useOrders = () => {
     error,
   } = useQuery<Order[]>({
     queryKey: ["orders", user?.id],
-    queryFn: () => getOrdersApi(user?.id),
-    enabled: !!user,
+    queryFn: () => {
+      if (!user?.id) throw new Error("User ID is missing");
+      return getOrdersApi(user.id);
+    },
+    enabled: !!user?.id,
     staleTime: 1000 * 60 * 60,
     gcTime: 1000 * 60 * 720,
   });

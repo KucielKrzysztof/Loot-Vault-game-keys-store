@@ -1,6 +1,6 @@
 import Skeleton from "../../../ui/Skeleton";
 
-function OrderCardSkeleton() {
+function OrderCardSkeleton(): React.JSX.Element {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8 sm:p-6 lg:p-12">
       <h1 className="mb-6 text-xl font-black text-white uppercase italic sm:mb-10 sm:text-2xl">

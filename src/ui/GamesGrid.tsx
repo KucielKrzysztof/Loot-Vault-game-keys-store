@@ -11,9 +11,9 @@ export interface Game {
   slug: string;
   price: number;
   original_price: number | null;
-  discount: number;
-  image: string;
-  in_stock: boolean;
+  discount: number | null;
+  image: string | null;
+  in_stock: boolean | null;
 }
 
 interface GamesContextType {
@@ -99,14 +99,18 @@ function GamesItem({ game }: { game: Game }) {
     original_price: originalPrice,
     discount,
     image,
-    in_stock: inStock,
+    in_stock,
   } = game;
+
+  const hasDiscount = (discount ?? 0) > 0;
+  const inStock = in_stock ?? false;
+  const displayImg = image ?? "/vault_logo.png";
 
   return (
     <div className="bg-surface flex flex-col rounded-2xl p-2">
       <div className="aspect-16:9 group relative rounded-xl">
         <img
-          src={image}
+          src={displayImg}
           alt={title}
           loading="lazy"
           className={`h-full w-full overflow-hidden rounded-2xl object-cover transition-all duration-200 hover:scale-110 hover:cursor-pointer ${!inStock && "grayscale"}`}
@@ -115,7 +119,7 @@ function GamesItem({ game }: { game: Game }) {
           }}
         />
 
-        {discount > 0 && inStock && (
+        {hasDiscount && inStock && (
           <span className="bg-secondary transform-all pointer-events-none absolute bottom-1 left-1 rounded-2xl px-2 py-1 text-xs font-bold text-white opacity-100 duration-200 group-hover:translate-y-2 group-hover:opacity-0">
             -{discount}%
           </span>
@@ -132,7 +136,7 @@ function GamesItem({ game }: { game: Game }) {
         <div className="flex items-center gap-1 text-sm md:text-lg">
           {inStock ? (
             <div className="text-secondary flex items-center gap-1">
-              {discount > 0 && originalPrice && (
+              {hasDiscount && originalPrice && (
                 <span className="text-[11px] text-gray-400 line-through md:text-sm">
                   ${formatCurrency(originalPrice)}
                 </span>

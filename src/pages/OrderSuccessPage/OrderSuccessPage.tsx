@@ -7,11 +7,16 @@ import { useCart } from "../../Features/cart/hooks/useCart";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import SEO from "../../ui/SEO";
+import type { OrderItem } from "../../Features/orders/types/order";
 
-function OrderSuccessPage() {
+function OrderSuccessPage(): React.JSX.Element {
   const { order, isPending, orderId, error } = useOrder();
   const { clear } = useCart();
   const navigate = useNavigate();
+
+  const orderItems = (order?.items as unknown as OrderItem[]) || [];
+
+  const shippingEmail = (order?.shipping_details as any)?.shippingEmail || "";
 
   useEffect(() => {
     if (order) clear();
@@ -45,12 +50,12 @@ function OrderSuccessPage() {
         </h2>
 
         <div className="space-y-4">
-          {order?.items.map((item) => (
+          {orderItems.map((item) => (
             <OrderKeyItem key={item.id} item={item} />
           ))}
         </div>
 
-        <OrderSuccessFooter email={order?.shipping_details?.shippingEmail} />
+        <OrderSuccessFooter email={shippingEmail} />
       </div>
     </div>
   );

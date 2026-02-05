@@ -1,15 +1,15 @@
 import { useOrders } from "../../Features/orders/hooks/useOrders";
-import FullPageLoader from "../../ui/FullPageLoader";
+import type { Order } from "../../Features/orders/types/order";
 import OrderCard from "./components/OrderCard";
 import OrderCardSkeleton from "./components/OrderCardSkeleton";
 import OrdersEmpty from "./components/OrdersEmpty";
 
-function OrdersPage() {
+function OrdersPage(): React.JSX.Element {
   const { orders, isPending } = useOrders();
 
   if (isPending) return <OrderCardSkeleton />;
 
-  if (!orders?.length) {
+  if (!orders || orders.length === 0) {
     return <OrdersEmpty />;
   }
 
@@ -20,7 +20,7 @@ function OrdersPage() {
       </h1>
 
       <div className="space-y-4 sm:space-y-6">
-        {orders?.map((order) => (
+        {orders?.map((order: Order) => (
           <OrderCard key={order.id} order={order} />
         ))}
       </div>

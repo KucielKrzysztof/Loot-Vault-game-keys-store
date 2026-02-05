@@ -11,7 +11,7 @@ import { useHomePageProducts } from "./hooks/useHomePageProducts";
 import SEO from "../../ui/SEO";
 import { useNavigate } from "react-router-dom";
 
-function HomePage() {
+function HomePage(): React.JSX.Element {
   const {
     trending,
     loadingTrending,

@@ -1,7 +1,7 @@
 import Skeleton from "../../../ui/Skeleton";
 import PageSection from "../../../ui/PageSection";
 
-function ProductPageSkeleton() {
+function ProductPageSkeleton(): React.JSX.Element {
   return (
     <div className="bg-background relative h-full w-full">
       {/* Banner Skeleton */}

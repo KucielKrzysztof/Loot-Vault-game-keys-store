@@ -1,7 +1,18 @@
 import { X } from "lucide-react";
 import FilterContent from "./FilterContent";
+import type { FilterProps } from "../ProductsListPage";
 
-function MobileFilterDrawer({ isOpen, onClose, filterProps }) {
+interface MobileFilterDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  filterProps: FilterProps;
+}
+
+function MobileFilterDrawer({
+  isOpen,
+  onClose,
+  filterProps,
+}: MobileFilterDrawerProps): React.JSX.Element {
   return (
     <div
       className={`fixed inset-0 z-100 transition-all duration-300 md:hidden ${isOpen ? "visible opacity-100" : "invisible opacity-0"}`}

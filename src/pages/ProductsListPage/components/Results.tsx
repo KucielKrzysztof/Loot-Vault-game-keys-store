@@ -3,6 +3,21 @@ import { ArrowUpDown } from "lucide-react";
 import GamesGrid from "../../../ui/GamesGrid";
 import Button from "../../../ui/Button";
 import Select from "../../../ui/Select";
+import type {
+  Product,
+  SortArgs,
+} from "../../../Features/products/types/product";
+
+interface ResultsProps {
+  page: number;
+  products: Product[];
+  isLoading: boolean;
+  count: number;
+  numOfPages: number;
+  onPageChange: (newPage: number) => void;
+  sortBy: SortArgs;
+  onSort: (newSortValue: string) => void;
+}
 
 function Results({
   page,
@@ -13,7 +28,7 @@ function Results({
   onPageChange,
   sortBy,
   onSort,
-}) {
+}: ResultsProps): React.JSX.Element {
   const sortOptions = [
     { value: "price-asc", name: "Price: Low to High" },
     { value: "price-desc", name: "Price: High to Low" },
@@ -31,7 +46,7 @@ function Results({
             options={sortOptions}
             label={
               <span className="flex items-center gap-1">
-                <ArrowUpDown size={32} /> Sort:
+                <ArrowUpDown size={16} /> Sort:
               </span>
             }
             className="flex-row p-0"

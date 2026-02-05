@@ -1,7 +1,7 @@
 import Button from "../../../ui/Button";
 import FullBanner from "../../../ui/FullBanner";
 
-function TestimonialBanner() {
+function TestimonialBanner(): React.JSX.Element {
   return (
     <FullBanner className="my-10 h-auto py-16 md:h-[500px]">
       <FullBanner.Image

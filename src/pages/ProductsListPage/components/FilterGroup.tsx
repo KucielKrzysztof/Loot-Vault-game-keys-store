@@ -1,4 +1,16 @@
-function FilterGroup({ title, items, render }) {
+import type { ReactNode } from "react";
+
+interface FilterGroupProps<T> {
+  title: string;
+  items: T[];
+  render: (item: T) => ReactNode;
+}
+
+function FilterGroup<T>({
+  title,
+  items,
+  render,
+}: FilterGroupProps<T>): React.JSX.Element {
   return (
     <div>
       <h2 className="mb-4 text-xs font-bold tracking-widest text-white uppercase opacity-50">

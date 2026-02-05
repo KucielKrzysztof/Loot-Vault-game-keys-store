@@ -1,6 +1,23 @@
 import Button from "../../../ui/Button";
 
-function PriceRange({ min, max, onMinChange, onMaxChange }) {
+interface PriceRangeProps {
+  min: string;
+  max: string;
+  onMinChange: (val: string) => void;
+  onMaxChange: (val: string) => void;
+}
+
+function PriceRange({
+  min,
+  max,
+  onMinChange,
+  onMaxChange,
+}: PriceRangeProps): React.JSX.Element {
+  const handleInputChange = (val: string, setter: (v: string) => void) => {
+    if (Number(val) < 0) return;
+    setter(val);
+  };
+
   return (
     <>
       <h2 className="text-xs font-bold tracking-widest text-white uppercase opacity-50">
@@ -16,7 +33,7 @@ function PriceRange({ min, max, onMinChange, onMaxChange }) {
                 value={min}
                 placeholder="0"
                 className="w-full bg-transparent py-2 pl-1 text-center text-white outline-none placeholder:text-white/20"
-                onChange={(e) => onMinChange(e.target.value)}
+                onChange={(e) => handleInputChange(e.target.value, onMinChange)}
               />
             </div>
 
@@ -29,15 +46,15 @@ function PriceRange({ min, max, onMinChange, onMaxChange }) {
                 value={max}
                 placeholder="999"
                 className="w-full bg-transparent py-2 pl-1 text-center text-white outline-none placeholder:text-white/20"
-                onChange={(e) => onMaxChange(e.target.value)}
+                onChange={(e) => handleInputChange(e.target.value, onMaxChange)}
               />
             </div>
           </div>
         </div>
         <Button
           onClick={() => {
-            onMaxChange(0);
-            onMinChange(0);
+            onMaxChange("");
+            onMinChange("");
           }}
           className="mx-auto px-5 text-sm font-semibold text-white/80 uppercase hover:cursor-pointer hover:text-white"
         >

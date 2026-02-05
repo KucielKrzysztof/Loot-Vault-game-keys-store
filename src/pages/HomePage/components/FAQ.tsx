@@ -1,6 +1,6 @@
 import Accordion from "../../../ui/Accordion";
 
-function FAQ() {
+function FAQ(): React.JSX.Element {
   return (
     <div className="mx-auto max-w-3xl py-20">
       <h2 className="mb-10 text-center text-3xl font-black tracking-tighter text-white">

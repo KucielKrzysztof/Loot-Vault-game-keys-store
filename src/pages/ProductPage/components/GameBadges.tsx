@@ -1,6 +1,25 @@
 import { CheckCircle, Globe, Star } from "lucide-react";
+import type { ReactNode } from "react";
 
-export function GameBadges({ region, inStock, rating }) {
+type BadgeVariant = "default" | "success" | "error" | "warning";
+
+interface GameBadgesProps {
+  region: string;
+  inStock: boolean;
+  rating: number;
+}
+
+interface BadgeProps {
+  icon: ReactNode;
+  label: string | number;
+  variant?: BadgeVariant;
+}
+
+export function GameBadges({
+  region,
+  inStock,
+  rating,
+}: GameBadgesProps): React.JSX.Element {
   return (
     <div className="mx-auto flex flex-wrap justify-center gap-3">
       <Badge icon={<Globe size={14} />} label={region} />
@@ -18,7 +37,11 @@ export function GameBadges({ region, inStock, rating }) {
   );
 }
 
-function Badge({ icon, label, variant = "default" }) {
+function Badge({
+  icon,
+  label,
+  variant = "default",
+}: BadgeProps): React.JSX.Element {
   const styles = {
     default: "border-white/10 bg-white/5 text-white",
     success: "border-green-500/20 bg-green-500/10 text-green-500",

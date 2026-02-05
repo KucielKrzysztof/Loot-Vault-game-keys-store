@@ -1,6 +1,14 @@
 import Button from "../../../ui/Button";
 
-function BannerGameFeatured({ image, onClick }) {
+interface BannerGameFeaturedProps {
+  image: string;
+  onClick: () => void;
+}
+
+function BannerGameFeatured({
+  image,
+  onClick,
+}: BannerGameFeaturedProps): React.JSX.Element {
   return (
     <div
       onClick={onClick}

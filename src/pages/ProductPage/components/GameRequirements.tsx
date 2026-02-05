@@ -1,4 +1,28 @@
-const RequirementRow = ({ label, value }) => (
+export interface RequirementSpecs {
+  os: string;
+  processor: string;
+  memory: string;
+  gpu: string;
+}
+
+export interface RequirementsData {
+  minimum: RequirementSpecs;
+  recommended: RequirementSpecs;
+}
+
+interface GameRequirementsProps {
+  requirements?: RequirementsData | null;
+}
+
+interface RequirementRowProps {
+  label: string;
+  value: string;
+}
+
+const RequirementRow = ({
+  label,
+  value,
+}: RequirementRowProps): React.JSX.Element => (
   <div className="flex flex-row gap-3 border-b border-white/5 py-2">
     <span className="text-[10px] font-bold tracking-widest text-gray-500 uppercase">
       {label}:
@@ -7,7 +31,12 @@ const RequirementRow = ({ label, value }) => (
   </div>
 );
 
-function GameRequirements({ requirements }) {
+function GameRequirements({
+  requirements,
+}: GameRequirementsProps): React.JSX.Element | null {
+  if (!requirements || !requirements.minimum || !requirements.recommended)
+    return null;
+
   return (
     <div className="mt-10 rounded-[40px] border border-white/5 bg-black/20 p-8 lg:p-12">
       <h2 className="mb-10 text-left text-3xl font-black uppercase">

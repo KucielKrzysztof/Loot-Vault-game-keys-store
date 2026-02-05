@@ -1,7 +1,13 @@
 import { SlidersHorizontal } from "lucide-react";
 import Button from "../../../ui/Button";
 
-function MobileFilterTriggerButton({ onClose }) {
+interface MobileFilterTriggerButtonProps {
+  onClose: () => void;
+}
+
+function MobileFilterTriggerButton({
+  onClose,
+}: MobileFilterTriggerButtonProps): React.JSX.Element {
   return (
     <div className="mt-4 md:hidden">
       <Button

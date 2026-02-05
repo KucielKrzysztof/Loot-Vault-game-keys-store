@@ -1,6 +1,7 @@
 import { useFilterOptions } from "../../../Features/products/hooks/useFilterOptions";
 import Button from "../../../ui/Button";
 import CheckBoxWrapper from "../../../ui/CheckBoxWrapper";
+import type { FilterProps } from "../ProductsListPage";
 import FilterGroup from "./FilterGroup";
 import PriceRange from "./PriceRange";
 
@@ -14,7 +15,7 @@ function FilterContent({
   tempPlatform,
   setTempPlatform,
   onApply,
-}) {
+}: FilterProps): React.JSX.Element {
   const { isPending, genres, platforms } = useFilterOptions();
 
   if (isPending)

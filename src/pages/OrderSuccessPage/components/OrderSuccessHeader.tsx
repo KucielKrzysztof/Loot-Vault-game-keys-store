@@ -1,6 +1,12 @@
 import { CheckCircle } from "lucide-react";
 
-function OrderSuccessHeader({ orderId }) {
+interface OrderSuccessHeaderProps {
+  orderId: string;
+}
+
+function OrderSuccessHeader({
+  orderId,
+}: OrderSuccessHeaderProps): React.JSX.Element {
   return (
     <div className="mb-6 flex flex-col items-center sm:mb-8">
       <div className="bg-primary/20 mb-4 flex h-16 w-16 items-center justify-center rounded-full sm:mb-6 sm:h-20 sm:w-20">

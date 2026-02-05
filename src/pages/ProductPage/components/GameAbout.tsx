@@ -1,12 +1,28 @@
 import { Info } from "lucide-react";
 import { formatLabel } from "../../../Features/products/helpers/labelFormatter";
+import type { Product } from "../../../Features/products/types/product";
 
-function GameAbout({ product, setShowDescription, showDescription }) {
+interface GameAboutProps {
+  product: Product;
+  showDescription: boolean;
+  setShowDescription: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+function GameAbout({
+  product,
+  setShowDescription,
+  showDescription,
+}: GameAboutProps): React.JSX.Element {
   const { description, genre } = product;
 
+  const safeDescription =
+    description || "No description available for this title.";
+
   const displayDescription = showDescription
-    ? description
-    : description.split(" ").slice(0, 40).join(" ") + "...";
+    ? safeDescription
+    : safeDescription.split(" ").slice(0, 40).join(" ") + "...";
+
+  const genresList = (genre as string[]) || [];
 
   return (
     <>
@@ -32,7 +48,7 @@ function GameAbout({ product, setShowDescription, showDescription }) {
             <Info size={20} className="text-primary" /> Genres
           </h2>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            {genre.map((g) => (
+            {genresList.map((g) => (
               <div
                 key={g}
                 className="hover:bg-primary/20 cursor-default rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-xs font-bold transition-colors"

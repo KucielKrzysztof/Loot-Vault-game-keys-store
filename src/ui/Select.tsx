@@ -14,7 +14,7 @@ interface OptionObject {
 type RawOption = string | OptionObject;
 
 interface SelectContextType {
-  label: string;
+  label: ReactNode;
   options: OptionObject[];
 }
 
@@ -32,7 +32,7 @@ function useSelectContext() {
 
 interface SelectProps {
   children: ReactNode;
-  label?: string;
+  label?: ReactNode;
   options?: RawOption[];
   className?: string;
 }
@@ -85,14 +85,16 @@ function Label({ className }: SubComponentProps) {
 }
 
 interface ContentProps extends SubComponentProps {
+  value?: string | number;
   onChange?: ChangeEventHandler<HTMLSelectElement>;
 }
 
-function Content({ className, onChange }: ContentProps) {
+function Content({ className, onChange, value }: ContentProps) {
   const { options } = useSelectContext();
 
   return (
     <select
+      value={value}
       onChange={onChange}
       className={cn(
         "bg-background/60 hover:border-primary/50 focus:border-primary w-full cursor-pointer rounded-xl border border-white/10 px-4 py-3 text-sm font-medium text-white capitalize transition-all outline-none",

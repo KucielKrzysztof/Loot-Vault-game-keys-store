@@ -3,7 +3,7 @@ import { useLocation, Link, useNavigate } from "react-router-dom";
 import { AlertTriangle, RefreshCw, Mail, Info, Phone } from "lucide-react";
 import Button from "../../ui/Button";
 
-function OrderErrorPage() {
+function OrderErrorPage(): React.JSX.Element {
   const location = useLocation();
   const { message, orderId, technicalError } = location.state || {
     message: "An unexpected error occurred during payment processing.",
