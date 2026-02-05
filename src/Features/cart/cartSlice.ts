@@ -38,15 +38,22 @@ export const addItemWithStockCheck = createAsyncThunk<
     try {
       const latestData = await getProductStockAndPrice(product.id);
 
-      if (!latestData.in_stock) {
+      if (!latestData || !latestData.in_stock) {
         return rejectWithValue("Out of stock! Someone was faster than you.");
       }
 
-      dispatch(addToCart({ ...product, price: latestData.price }));
+      const sanitizedData = {
+        in_stock: Boolean(latestData.in_stock),
+        price: latestData.price ?? 0,
+      };
 
-      return latestData;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
+      dispatch(addToCart({ ...product, price: sanitizedData.price }));
+
+      return sanitizedData;
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Unexpected error";
+      return rejectWithValue(errorMessage);
     }
   },
 );

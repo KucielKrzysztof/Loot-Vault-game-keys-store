@@ -1,10 +1,18 @@
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import { useUser } from "../../Features/auth/hooks/useUser";
 import { useUpdateUserInfo } from "../../Features/auth/hooks/useUpdateUserInfo";
 import UserAvatarSection from "./components/UserAvatarSection";
 import UserDetailsForm from "./components/UserDetailsForm";
 
-function ProfilePage() {
+export interface ProfileFormValues {
+  fullName: string;
+  email: string;
+  password?: string;
+  passwordConfirm?: string;
+  avatar?: FileList;
+}
+
+function ProfilePage(): React.JSX.Element {
   const { user } = useUser();
   const { updateUser, isUpdating } = useUpdateUserInfo();
 
@@ -13,15 +21,15 @@ function ProfilePage() {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm({
+  } = useForm<ProfileFormValues>({
     defaultValues: {
       fullName: user?.user_metadata?.fullName || "",
       email: user?.email || "",
     },
   });
 
-  const onSubmit = (data) => {
-    const updates = {};
+  const onSubmit: SubmitHandler<ProfileFormValues> = (data) => {
+    const updates: any = {};
     if (data.fullName !== user?.user_metadata?.fullName)
       updates.fullName = data.fullName;
     if (data.email !== user?.email) updates.email = data.email;
@@ -49,7 +57,7 @@ function ProfilePage() {
         className="grid gap-8 lg:grid-cols-[1fr_2fr]"
       >
         <UserAvatarSection
-          user={user}
+          user={user ?? null}
           register={register}
           isUpdating={isUpdating}
         />

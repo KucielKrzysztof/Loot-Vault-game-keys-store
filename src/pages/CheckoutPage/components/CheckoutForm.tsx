@@ -1,7 +1,14 @@
-import { useForm } from "react-hook-form";
+import { useForm, type SubmitHandler } from "react-hook-form";
 import FormInput from "../../../ui/FormInput";
+import type { User } from "@supabase/supabase-js";
 
-function PaymentBadge({ src, alt, isPng = false }) {
+interface PaymentBadgeProps {
+  src: string;
+  alt: string;
+  isPng?: boolean;
+}
+
+function PaymentBadge({ src, alt, isPng = false }: PaymentBadgeProps) {
   return (
     <div className="bg-surface flex h-10 w-16 items-center justify-center rounded-xl border border-white/5 p-2">
       <img
@@ -13,12 +20,26 @@ function PaymentBadge({ src, alt, isPng = false }) {
   );
 }
 
-function CheckoutForm({ user, onSubmit, isCreating }) {
+export interface CheckoutFormValues {
+  fullName: string;
+  shippingEmail: string;
+  address: string;
+  city: string;
+  zipCode: string;
+}
+
+interface CheckoutFormProps {
+  user: User | null;
+  onSubmit: SubmitHandler<CheckoutFormValues>;
+  isProcessing: boolean;
+}
+
+function CheckoutForm({ user, onSubmit, isProcessing }: CheckoutFormProps) {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
+  } = useForm<CheckoutFormValues>({
     defaultValues: {
       fullName: user?.user_metadata?.fullName || "",
       shippingEmail: user?.email || "",
@@ -46,7 +67,7 @@ function CheckoutForm({ user, onSubmit, isCreating }) {
             register={register}
             error={errors.fullName}
             validation={{ required: "Required" }}
-            disabled={isCreating}
+            disabled={isProcessing}
           />
           <FormInput
             label="Delivery Email"
@@ -57,7 +78,7 @@ function CheckoutForm({ user, onSubmit, isCreating }) {
               required: "Required",
               pattern: { value: /\S+@\S+\.\S+/, message: "Invalid email" },
             }}
-            disabled={isCreating}
+            disabled={isProcessing}
           />
         </div>
       </div>
@@ -74,7 +95,7 @@ function CheckoutForm({ user, onSubmit, isCreating }) {
             register={register}
             error={errors.address}
             validation={{ required: "Required" }}
-            disabled={isCreating}
+            disabled={isProcessing}
           />
           <div className="grid gap-4 md:grid-cols-2">
             <FormInput
@@ -83,7 +104,7 @@ function CheckoutForm({ user, onSubmit, isCreating }) {
               register={register}
               error={errors.city}
               validation={{ required: "Required" }}
-              disabled={isCreating}
+              disabled={isProcessing}
             />
             <FormInput
               label="Zip Code"
@@ -92,7 +113,7 @@ function CheckoutForm({ user, onSubmit, isCreating }) {
               register={register}
               error={errors.zipCode}
               validation={{ required: "Required" }}
-              disabled={isCreating}
+              disabled={isProcessing}
             />
           </div>
         </div>

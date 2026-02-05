@@ -1,7 +1,18 @@
+import type { CartItem as CartItemType } from "../../../Features/cart/cartSlice";
 import CartItem from "../../../Features/cart/components/CartItem";
 import { formatCurrency } from "../../../utils/formatters";
 
-function OrderOverview({ totalPrice, totalQuantity , cart}) {
+interface OrderOverviewProps {
+  totalPrice: number;
+  totalQuantity: number;
+  cart: CartItemType[];
+}
+
+function OrderOverview({
+  totalPrice,
+  totalQuantity,
+  cart,
+}: OrderOverviewProps): React.JSX.Element {
   return (
     <div className="bg-surface sticky top-24 rounded-3xl border border-white/10 p-8 shadow-2xl">
       <div className="mb-8 flex items-center justify-between">

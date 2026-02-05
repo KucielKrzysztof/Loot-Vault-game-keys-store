@@ -1,18 +1,25 @@
 import { useUser } from "../../../Features/auth/hooks/useUser";
 import { useCart } from "../../../Features/cart/hooks/useCart";
 import { notifyError } from "../../../utils/notifications";
-import { createCheckoutSession } from "../../../services/apiOrders";
+import {
+  createCheckoutSession,
+  type CheckoutData,
+} from "../../../services/apiOrders";
 import { useState } from "react";
+import type { CheckoutFormValues } from "../components/CheckoutForm";
 
 export const useCheckout = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { cart, totalPrice, totalQuantity } = useCart();
   const { user } = useUser();
 
-  async function handleCheckout(formData) {
+  async function handleCheckout(formData: CheckoutFormValues) {
     try {
       setIsProcessing(true);
-      const checkoutData = {
+
+      if (cart.length === 0) throw new Error("Your cart is empty");
+
+      const checkoutData: CheckoutData = {
         items: cart,
         user_id: user?.id || null,
         shippingDetails: formData,
@@ -25,7 +32,9 @@ export const useCheckout = () => {
         window.location.href = data.url;
       }
     } catch (err) {
-      notifyError("Payment initialization failed", err.message);
+      const errorMessage =
+        err instanceof Error ? err.message : "An unexpected error occurred";
+      notifyError("Payment initialization failed", errorMessage);
     } finally {
       setIsProcessing(false);
     }

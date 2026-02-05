@@ -1,14 +1,12 @@
+import type { CartItem } from "../Features/cart/cartSlice";
 import type { Order } from "../Features/orders/types/order";
+import type { CheckoutFormValues } from "../pages/CheckoutPage/components/CheckoutForm";
 import { supabase } from "./supabase";
 
-interface CheckoutData {
-  items: {
-    id: string | number;
-    quantity: number;
-    selectedPlatform: string;
-  }[];
-  user_email: string;
-  user_id: string;
+export interface CheckoutData {
+  items: CartItem[];
+  user_id: string | null;
+  shippingDetails: CheckoutFormValues;
 }
 
 export async function createCheckoutSession(

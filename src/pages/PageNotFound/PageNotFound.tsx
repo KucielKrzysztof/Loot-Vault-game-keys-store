@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../ui/Button";
 import chestImg from "./assets/empty-chest.png";
 
-function PageNotFound() {
+function PageNotFound(): React.JSX.Element {
   const navigate = useNavigate();
 
   return (

@@ -1,7 +1,25 @@
+import type {
+  FieldErrors,
+  UseFormGetValues,
+  UseFormRegister,
+} from "react-hook-form";
 import Button from "../../../ui/Button";
 import FormInput from "../../../ui/FormInput";
+import type { ProfileFormValues } from "../ProfilePage";
 
-function UserDetailsForm({ register, errors, getValues, isUpdating }) {
+interface UserDetailsFormProps {
+  register: UseFormRegister<ProfileFormValues>;
+  errors: FieldErrors<ProfileFormValues>;
+  getValues: UseFormGetValues<ProfileFormValues>;
+  isUpdating: boolean;
+}
+
+function UserDetailsForm({
+  register,
+  errors,
+  getValues,
+  isUpdating,
+}: UserDetailsFormProps): React.JSX.Element {
   return (
     <div className="bg-surface flex flex-col gap-6 rounded-3xl border border-white/10 p-8 shadow-2xl">
       <div className="space-y-4">
@@ -52,10 +70,13 @@ function UserDetailsForm({ register, errors, getValues, isUpdating }) {
           error={errors.passwordConfirm}
           disabled={isUpdating}
           validation={{
-            validate: (val) =>
-              !getValues("password") ||
-              val === getValues("password") ||
-              "Passwords must match",
+            validate: (val) => {
+              const password = getValues("password");
+              if (password && val !== password) {
+                return "Passwords must match";
+              }
+              return true;
+            },
           }}
         />
       </div>

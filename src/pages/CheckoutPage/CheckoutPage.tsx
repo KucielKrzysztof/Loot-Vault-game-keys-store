@@ -10,7 +10,6 @@ function CheckoutPage() {
     totalPrice,
     totalQuantity,
     user,
-    isCreating,
     handleCheckout,
     isProcessing,
   } = useCheckout();
@@ -31,9 +30,9 @@ function CheckoutPage() {
       <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr]">
         <div className="space-y-6">
           <CheckoutForm
-            user={user}
+            user={user ?? null}
             onSubmit={handleCheckout}
-            isCreating={isCreating}
+            isProcessing={isProcessing}
           />
         </div>
 

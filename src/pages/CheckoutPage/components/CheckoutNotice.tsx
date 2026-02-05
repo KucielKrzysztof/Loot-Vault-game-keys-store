@@ -1,4 +1,4 @@
-function CheckoutNotice() {
+function CheckoutNotice(): React.JSX.Element {
   return (
     <div className="rounded-2xl bg-white/5 p-6">
       <ul className="list-disc text-left">
